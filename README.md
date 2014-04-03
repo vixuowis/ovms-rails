@@ -1,12 +1,14 @@
-ovms-python
+ovms-rails
 ===========
 
 `OVMS` is my master graduation project. the full name is OVAL-based vulnerabilities management system.
 
-####Software requirements
+##Software requirements
 	
-	python 2.7.5
-	django 1.6.2
-	pip 1.5.4
-	hamlpy 
-	Django-haml
+	ruby 2.1.1
+	rails 4.0.3
+
+##Getting Started
+	
+	bundle install
+	rails s
