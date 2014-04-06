@@ -51,7 +51,7 @@ body {
   background-color: white;
   background-repeat: repeat;
   height: 90px;
-  padding-top: 10px; }
+  padding-top: 20px; }
   #in-nav ul {
     position: relative;
     top: 10px; }
@@ -122,7 +122,8 @@ footer {
   background-position: -192px -96px; }
 
 .forms {
-  background-position: -97px -32px; }
+  background-position: -97px -32px; 
+  height: 32px;}
 
 .stream {
   background-position: -1px -64px; }
@@ -145,6 +146,10 @@ footer {
 
 .calendar {
   background-position: -161px -128px; }
+
+.database {
+  background-position: -129px 0px;
+  height: 32px;}
 
 .batch-big {
   background-image: url(image_path('white-batch-64.png'));

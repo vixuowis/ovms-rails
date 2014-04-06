@@ -1,5 +1,5 @@
-var n = 3, // number of layers
-    m = 31, // number of samples per layer
+var n = 4, // number of layers
+    m = 30, // number of samples per layer
     stack = d3.layout.stack(),
     layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); })),
     yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); }),
@@ -11,15 +11,15 @@ var margin = {top: 40, right: 10, bottom: 20, left: 0},
 
 var x = d3.scale.ordinal()
     .domain(d3.range(m))
-    .rangeRoundBands([0, width], .08);
+    .rangeRoundBands([0, width], .1);
 
 var y = d3.scale.linear()
     .domain([0, yStackMax])
     .range([height, 0]);
 
-var color = d3.scale.linear()
-    .domain([0, n - 1])
-    .range(["#FFA93C", "#EA494A"]);
+ var color = d3.scale.linear()
+     .domain([0, 1, 2, 3])
+     .range(["#FFA93C", "#F57943", "#EA494A", "#CC0000"]);
 
 var xAxis = d3.svg.axis()
     .scale(x)

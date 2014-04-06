@@ -1,0 +1,29 @@
+.page
+  .page-container
+    .container
+      .row
+        / left bar
+        =render :partial => "home/leftbar"
+        / right bar
+        .span10
+          %h4.header 最近30天漏洞发生趋势
+          #d3{:style=>"width:100%; margin-top:-30px"}
+          %br/ 
+          .row-fluid
+            .span3.knob
+              %h4 高危 CVSS[10.0]
+              %input.dial{:type => "text",:value=>"23","data-width"=>"100","data-fgcolor"=>"#CC0000","data-readonly"=>"true"}/
+            .span3.knob
+              %h4 严重 CVSS[7.0-9.9]
+              %input.dial{:type => "text",:value=>"24","data-width"=>"100","data-fgcolor"=>"#EA494A","data-readonly"=>"true"}/
+            .span3.knob
+              %h4 中等 CVSS[4.0-6.9]
+              %input.dial{:type => "text",:value=>"43","data-width"=>"100","data-fgcolor"=>"#F57943","data-readonly"=>"true"}/
+            .span3.knob
+              %h4 轻微 CVSS[0-3.9]
+              %input.dial{:type => "text",:value=>"10","data-width"=>"100","data-fgcolor"=>"#FFA93C","data-readonly"=>"true"}/
+%script{:src=>"#{asset_path('d3.v3.min.js')}"}
+%script{:src=>"#{asset_path('jquery.knob.js')}"}
+%script{:src=>"#{asset_path('jquery.sparkline.min.js')}"}
+%script{:src=>"#{asset_path('d3-setup.js')}"}
+%script{:src=>"#{asset_path('setup.js')}"}
