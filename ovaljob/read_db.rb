@@ -17,6 +17,7 @@ defs.each_with_index do |entry,index|
 
 	_metadata = (entry/'metadata')
 	vul[:title] = _title = (_metadata/'title').text()
+	
 	_affected = []
 	(_metadata/'affected').each do |a|
 		affect_entry = {}
@@ -27,14 +28,37 @@ defs.each_with_index do |entry,index|
 		_affected << affect_entry
 	end
 	vul[:affected] = _affected
+	
+	_reference = []
+	(entry/'metadata reference').each do |r|
+		reference_entry = {}
+		reference_entry['source'] = r['source']
+		reference_entry['ref_id'] = r['ref_id']
+		reference_entry['ref_url'] = r['ref_url']
+		_reference << reference_entry
+	end
+	vul[:reference] = _reference
 
-	# puts "[#{index}] #{_class[0..2]} ##{_id.split(":")[-1]}, #{_title.text()[0..100]+"..."}"
-	# _criteria = (entry/'criteria')
-	# _criteria.each do |c|
-	# 	puts c['operator']
-	# end
+	vul[:description] = (_metadata/'description').text()
+
+	(entry/'oval_repository/dates/status_change').each do |d|
+		if d.inner_html == "ACCEPTED"
+			vul[:date_accpeted] = d['date']
+		end
+	end
+
+	(entry/'oval_repository/dates/submitted').each do |d|
+		vul[:date_submitted] = d['date']
+	end
+
+	vul[:status] = (entry/'oval_repository status')[0].inner_html
+
+	_criteria = (entry/'criteria')
+	_criteria.each do |c|
+		vul[:criteria] = c
+	end
 	puts vul,""
-	sleep(0.5)
+	# sleep(0.5)
 	vulner_count+=1
 end
 
