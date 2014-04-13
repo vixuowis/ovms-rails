@@ -81,7 +81,7 @@ gem 'jbuilder', '1.0.2'
 gem 'haml-rails'
 
 # gem 'phantomjs'
-# gem 'hpricot'
+gem 'hpricot'
 # gem 'mysql2'
 gem 'will_paginate', '~> 3.0'
 # gem 'work_queue'
