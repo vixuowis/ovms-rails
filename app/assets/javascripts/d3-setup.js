@@ -1,16 +1,32 @@
-var n = 4, // number of layers
-    m = 30, // number of samples per layer
-    stack = d3.layout.stack(),
-    layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); })),
-    yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); }),
-    yStackMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
+var n = 4 // number of layers
+var m = 30 // number of samples per layer
+var stack = d3.layout.stack()
+var layers
+var values = d3.range(n).map(function() { return bumpLayer(m, .1); })
+layers = stack([[{"x":"5.10","y": 1},{"x":"5.11","y":2}],
+                [{"x":"5.10","y": 2},{"x":"5.11","y":4}],
+                [{"x":"5.10","y": 3},{"x":"5.11","y":5}],
+                [{"x":"5.10","y": 4},{"x":"5.11","y":6}]]);
+//alert(values)
+//layers = stack(values)
+var yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); })
+var yStackMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
+
+// alert(layers[0])
+// alert(layers[0][0].x+" "+layers[0][0].y)
+// layers = stack([{"x":0,"y": 0.3},{"x":1,"y":0.2}]);
 
 var margin = {top: 40, right: 10, bottom: 20, left: 0},
     width = 700 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
-    .domain(d3.range(m))
+    .domain(["5.10", "5.11", "5.12","5.13", "5.14", 
+             "5.15", "5.16", "5.17", "5.18","5.19", 
+             "5.20", "5.21", "5.22", "5.23","5.24",
+             "5.25", "5.26", "5.27", "5.28", "5.29", 
+             "5.30", "5.31", "6.1", "6.2", "6.3", 
+             "6.4", "6.5", "6.6", "6.7", "6.8"])
     .rangeRoundBands([0, width], .1);
 
 var y = d3.scale.linear()
@@ -57,7 +73,13 @@ rect.transition()
 svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
+    .call(xAxis)
+  .selectAll("text")
+    .attr("y", 5)
+    .attr("x", 5)
+    .attr("transform", "rotate(-35)")
+    .style("text-anchor", "end");
+    // .style("writing-mode", "tb-rl");
 
 d3.selectAll("input").on("change", function change() {
   if (this.value === "grouped") transitionGrouped();
@@ -106,7 +128,9 @@ function bumpLayer(n, o) {
   var a = [], i;
   for (i = 0; i < n; ++i) a[i] = o + o * Math.random();
   for (i = 0; i < 5; ++i) bump(a);
-  return a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
+  reval = a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
+  
+  return reval
 }
 
 $(function(){
@@ -115,7 +139,7 @@ $(function(){
   var targetWidth = $("#d3").parent().width();
   chart.attr("width", targetWidth);
   chart.attr("height", targetWidth / aspect); 
-     
+
   $(window).on("resize", function(){
     var targetWidth = $("#d3").parent().width();
     chart.attr("width", targetWidth);
