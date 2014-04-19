@@ -1,12 +1,39 @@
+var date_list = ["5.10", "5.11", "5.12","5.13", "5.14", 
+                 "5.15", "5.16", "5.17", "5.18","5.19", 
+                 "5.20", "5.21", "5.22", "5.23","5.24",
+                 "5.25", "5.26", "5.27", "5.28", "5.29", 
+                 "5.30", "5.31", "6.1", "6.2", "6.3", 
+                 "6.4", "6.5", "6.6", "6.7", "6.8"]
+var layer1 = []
+for(var li=0;li<date_list.length;li++)
+{
+  layer1.push({"x":date_list[li], "y":Math.random()})
+}
+var layer2 = []
+for(var li=0;li<date_list.length;li++)
+{
+  layer2.push({"x":date_list[li], "y":Math.random()})
+}
+var layer3 = []
+for(var li=0;li<date_list.length;li++)
+{
+  layer3.push({"x":date_list[li], "y":Math.random()})
+}
+var layer4 = []
+for(var li=0;li<date_list.length;li++)
+{
+  layer4.push({"x":date_list[li], "y":Math.random()})
+}
+
 var n = 4 // number of layers
 var m = 30 // number of samples per layer
 var stack = d3.layout.stack()
 var layers
 var values = d3.range(n).map(function() { return bumpLayer(m, .1); })
-layers = stack([[{"x":"5.10","y": 1},{"x":"5.11","y":2}],
-                [{"x":"5.10","y": 2},{"x":"5.11","y":4}],
-                [{"x":"5.10","y": 3},{"x":"5.11","y":5}],
-                [{"x":"5.10","y": 4},{"x":"5.11","y":6}]]);
+layers = stack([layer1,
+                layer2,
+                layer3,
+                layer4]);
 //alert(values)
 //layers = stack(values)
 var yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); })
@@ -21,12 +48,7 @@ var margin = {top: 40, right: 10, bottom: 20, left: 0},
     height = 300 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
-    .domain(["5.10", "5.11", "5.12","5.13", "5.14", 
-             "5.15", "5.16", "5.17", "5.18","5.19", 
-             "5.20", "5.21", "5.22", "5.23","5.24",
-             "5.25", "5.26", "5.27", "5.28", "5.29", 
-             "5.30", "5.31", "6.1", "6.2", "6.3", 
-             "6.4", "6.5", "6.6", "6.7", "6.8"])
+    .domain(date_list)
     .rangeRoundBands([0, width], .1);
 
 var y = d3.scale.linear()
@@ -75,8 +97,8 @@ svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis)
   .selectAll("text")
-    .attr("y", 5)
-    .attr("x", 5)
+    .attr("y", 3)
+    .attr("x", 0)
     .attr("transform", "rotate(-35)")
     .style("text-anchor", "end");
     // .style("writing-mode", "tb-rl");
