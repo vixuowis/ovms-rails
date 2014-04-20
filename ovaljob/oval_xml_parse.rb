@@ -1,6 +1,6 @@
 require 'hpricot'
 
-doc = Hpricot.XML(open("../../oval.mitre.org/oval.xml"))
+doc = Hpricot.XML(open("oval/oval.xml"))
 
 defs = (doc/'oval_definitions definitions definition')
 
