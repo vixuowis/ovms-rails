@@ -20,8 +20,8 @@ all_vuln.each do |item|
   create = note[1]
   modify = note[2]
   # find item has created
+  id = coll.insert({"_id"=>title,"item"=>item})
   if modify.to_s.strip!=""
-    id = coll.insert(item)
     puts "#{id}=>{t'#{title}',c'#{create}',m'#{modify}'}"
     valid_vul_count+=1
   end

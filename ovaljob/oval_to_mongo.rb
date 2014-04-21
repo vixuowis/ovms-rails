@@ -14,8 +14,12 @@ def_count = 0
 
 # extract items
 all_def.each do |item|
-  id = coll.insert(item)
-  puts "#{id}=>",item
+  begin
+  	id = item['metadata']['reference']['ref_id']
+  	id = coll.insert({'_id'=>id,"item"=>item})
+  rescue
+  end
+  puts "#{id}"
   def_count +=1
 end
 
