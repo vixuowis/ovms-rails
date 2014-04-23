@@ -1,6 +1,6 @@
 Ovms::Application.routes.draw do
-  root :to => 'home#index2'
-  get '/index' =>'home#index'
+  root :to => 'home#index'
+  get '/index' =>'home#index2'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

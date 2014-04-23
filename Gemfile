@@ -87,3 +87,6 @@ gem 'will_paginate', '~> 3.0'
 # gem 'work_queue'
 
 gem 'redis-rails'
+gem 'mongo'
+gem 'bson_ext'
+

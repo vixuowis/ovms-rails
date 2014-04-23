@@ -8,6 +8,8 @@
         .span10
           %h4.header 最近30天漏洞趋势图（新发布+修订）
           #d3{:style=>"width:100%; margin-top:-30px"}
+          %input#trends-data{:type=>"hidden",:value=> "#{@trends_data}"}
+          %input#date-list{:type=>"hidden",:value=> "#{@simple_date_list}"}
           %br/ 
           .row-fluid
             .span3.knob

@@ -1,35 +1,39 @@
-var date_list = ["5.10", "5.11", "5.12","5.13", "5.14", 
-                 "5.15", "5.16", "5.17", "5.18","5.19", 
-                 "5.20", "5.21", "5.22", "5.23","5.24",
-                 "5.25", "5.26", "5.27", "5.28", "5.29", 
-                 "5.30", "5.31", "6.1", "6.2", "6.3", 
-                 "6.4", "6.5", "6.6", "6.7", "6.8"]
+// alert ($('#trends-data').val())
+var layers_from_data = jQuery.parseJSON($('#trends-data').val())
+
+var date_list = jQuery.parseJSON($('#date-list').val())
+// var date_list = ["4.1", "4.2", "4.3","4.4", "5.14", 
+//                  "5.15", "5.16", "5.17", "5.18","5.19", 
+//                  "5.20", "5.21", "5.22", "5.23","5.24",
+//                  "5.25", "5.26", "5.27", "5.28", "5.29", 
+//                  "5.30", "5.31", "6.1", "6.2", "6.3", 
+//                  "6.4", "6.5", "6.6", "6.7", "6.8"]
 var layer1 = []
 for(var li=0;li<date_list.length;li++)
 {
-  layer1.push({"x":date_list[li], "y":Math.random()})
+  layer1.push({"x":date_list[li], "y":layers_from_data[0][li]})
 }
 var layer2 = []
 for(var li=0;li<date_list.length;li++)
 {
-  layer2.push({"x":date_list[li], "y":Math.random()})
+  layer2.push({"x":date_list[li], "y":1})
 }
 var layer3 = []
 for(var li=0;li<date_list.length;li++)
 {
-  layer3.push({"x":date_list[li], "y":Math.random()})
+  layer3.push({"x":date_list[li], "y":1})
 }
 var layer4 = []
 for(var li=0;li<date_list.length;li++)
 {
-  layer4.push({"x":date_list[li], "y":Math.random()})
+  layer4.push({"x":date_list[li], "y":1})
 }
 
 var n = 4 // number of layers
 var m = 30 // number of samples per layer
 var stack = d3.layout.stack()
-var layers
-var values = d3.range(n).map(function() { return bumpLayer(m, .1); })
+var layers //= stack(layers_from_data)
+// var values = d3.range(n).map(function() { return bumpLayer(m, .1); })
 layers = stack([layer1,
                 layer2,
                 layer3,
@@ -135,25 +139,25 @@ function transitionStacked() {
 }
 
 // Inspired by Lee Byron's test data generator.
-function bumpLayer(n, o) {
+// function bumpLayer(n, o) {
 
-  function bump(a) {
-    var x = 1 / (.1 + Math.random()),
-        y = 2 * Math.random() - .5,
-        z = 10 / (.1 + Math.random());
-    for (var i = 0; i < n; i++) {
-      var w = (i / n - y) * z;
-      a[i] += x * Math.exp(-w * w);
-    }
-  }
+//   function bump(a) {
+//     var x = 1 / (.1 + Math.random()),
+//         y = 2 * Math.random() - .5,
+//         z = 10 / (.1 + Math.random());
+//     for (var i = 0; i < n; i++) {
+//       var w = (i / n - y) * z;
+//       a[i] += x * Math.exp(-w * w);
+//     }
+//   }
 
-  var a = [], i;
-  for (i = 0; i < n; ++i) a[i] = o + o * Math.random();
-  for (i = 0; i < 5; ++i) bump(a);
-  reval = a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
+//   var a = [], i;
+//   for (i = 0; i < n; ++i) a[i] = o + o * Math.random();
+//   for (i = 0; i < 5; ++i) bump(a);
+//   reval = a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
   
-  return reval
-}
+//   return reval
+// }
 
 $(function(){
   var aspect = 700/300,
@@ -170,3 +174,4 @@ $(function(){
     $("svg").height(targetWidth / aspect);
   });
 });
+
