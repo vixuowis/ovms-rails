@@ -25,18 +25,27 @@ class HomeController < ApplicationController
 
 	# 构造数据
 	layer1 = [] # 新漏洞
+	layer2 = []
+	layer3 = []
+	layer4 = []
 	date_list.each_with_index do |date_item,index|
-		vuln_thisday_count = coll.find({"item.Notes.Note"=>date_item}).count()
-		layer1.append(vuln_thisday_count)
+		vuln_null_count = coll.find('$and'=>[{'cvss'=>nil},{'modifify'=>date_item}]).count()
+		layer1.append(vuln_null_count)
+		# vuln_low_count = coll.find("this.cvss>=0 && this.cvss<=3.9").count()
+		layer2.append(1)
+		# vuln_mid_count = coll.find("this.cvss>=4.0 && this.cvss<=6.9").count()
+		layer3.append(1)
+		# vuln_high_count = coll.find("this.cvss>=7.0 && this.cvss<=10.0").count()
+		layer4.append(1)
 	end
 
 	# result = coll.find({"item.Notes.Note"=>"2014-04-25"}).count()
 
   	data = [
   		layer1,
-  		[],
-  		[],
-  		[]
+  		layer2,
+  		layer3,
+  		layer4
   	]
   	
   	@trends_data = data.to_s

@@ -16,17 +16,17 @@ for(var li=0;li<date_list.length;li++)
 var layer2 = []
 for(var li=0;li<date_list.length;li++)
 {
-  layer2.push({"x":date_list[li], "y":1})
+  layer2.push({"x":date_list[li], "y":layers_from_data[1][li]})
 }
 var layer3 = []
 for(var li=0;li<date_list.length;li++)
 {
-  layer3.push({"x":date_list[li], "y":1})
+  layer3.push({"x":date_list[li], "y":layers_from_data[2][li]})
 }
 var layer4 = []
 for(var li=0;li<date_list.length;li++)
 {
-  layer4.push({"x":date_list[li], "y":1})
+  layer4.push({"x":date_list[li], "y":layers_from_data[3][li]})
 }
 
 var n = 4 // number of layers

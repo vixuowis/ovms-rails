@@ -14,16 +14,20 @@ valid_vul_count = 0
 
 # extract items
 all_vuln.each do |item|
-  puts item
+  # puts item
   title = item['vuln:cve_id']
-  puts title
+  publish = item['vuln:published_datetime'].split('T')[0] if item['vuln:published_datetime']
+  modify = item['vuln:last_modified_datetime'].split('T')[0] if item['vuln:last_modified_datetime']
+  cvss = item['vuln:cvss']['cvss:base_metrics']['cvss:score'].to_f if item['vuln:cvss']
+
+  puts "#{title},#{publish},#{modify},#{cvss}"
   # note = item['Notes']['Note']
   # desc = note[0]
   # create = note[1]
   # modify = note[2]
   # find item has created
-  # id = coll.insert({"_id"=>title,"item"=>item})
-  # puts "#{id}"
+  id = coll.insert({"_id"=>title,"publish"=>publish,"modify"=>modify,"cvss"=>cvss,"item"=>item})
+  puts "#{id}"
   # if modify.to_s.strip!=""
   #   puts "#{id}=>{t'#{title}',c'#{create}',m'#{modify}'}"
   #   valid_vul_count+=1
