@@ -1,0 +1,2 @@
+module VulndbHelper
+end

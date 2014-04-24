@@ -21,7 +21,7 @@
             <li><a href="login.html">Login</a></li>
             </ul> -->
             <h4><strong>O</strong>VAL-based&nbsp;&nbsp;<strong>V</strong>ulnerabilities&nbsp;&nbsp;<strong>M</strong>anagement&nbsp;&nbsp;<strong>S</strong>ystem</h4>
-            <h4>基于OVAL的漏洞管理系统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据源: <a href="http://cve.mitre.org" target="_blank">cve.mitre.org</a></h4>
+            <h4>基于OVAL的漏洞管理系统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据源: <a href="http://cve.mitre.org" target="_blank">cve.mitre.org</a>、<a href="http://nvd.nist.gov/" target="_blank">nvd.nist.gov</a></h4>
           </div>
         </div>
       </div>
@@ -31,11 +31,11 @@
         <div class="row">
           <div class="span12">
             <ul>
-              <li><a href="/" class="active"><i class="batch home"></i><br />主页</a></li>
+              <li><a href="/" class="<%= 'active' if current_page?(root_path) %>"><i class="batch home"></i><br />主页</a></li>
               <li><span class="label label-important pull-right">12</span><a href="stream.html"><i class="batch stream"></i><br />事件流</a></li>
               <li><a href="paragraphs.html"><i class="batch quill"></i><br />漏洞预测</a></li>
               <li><a href="calendar.html"><i class="batch calendar"></i><br />漏洞日历</a></li>
-              <li><a href="messages.html"><i class="batch database"></i><br />漏洞库</a></li>
+              <li><a href="/database" class="<%= 'active' if current_page?(database_path) %>"><i class="batch database"></i><br />漏洞库</a></li>
               <li><span class="label label-important pull-right">3</span><a href="messages.html"><i class="batch plane"></i><br />漏洞扫描</a></li>
               <li><a href="faq.html"><i class="batch forms"></i><br />系统日志</a></li>
               <!-- <li><a href="users.html"><i class="batch users"></i><br />帮助</a></li> -->
@@ -45,7 +45,15 @@
         </div>
       </div>
     </div>
-    <%= yield %>
+
+    <div class="page">
+      <div class="page-container">
+        <div class="container">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
     <footer>
       <div class="container">
         <div class="row">
