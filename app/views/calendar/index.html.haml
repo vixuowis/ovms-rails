@@ -1,0 +1,72 @@
+%script{:src=>"#{asset_path('jquery.min.js')}"}
+%script{:src=>"#{asset_path('bootstrap.js')}"}
+%script{:src=>"#{asset_path('jquery.knob.js')}"}
+%script{:src=>"#{asset_path('d3.v3.min.js')}"}
+%script{:src=>"#{asset_path('jquery.sparkline.min.js')}"}
+%script{:src=>"#{asset_path('jquery.tablesorter.min.js')}"}
+%script{:src=>"#{asset_path('jquery.peity.min.js')}"}
+%script{:src=>"#{asset_path('toastr.js')}"}
+%script{:src=>"#{asset_path('fullcalendar.min.js')}"}
+%script{:src=>"#{asset_path('gcal.js')}"}
+%script{:src=>"#{asset_path('setup.js')}"}
+.row
+  .span4#events
+    %h4 Upcoming
+    .event
+      .date.success
+        %h1 14
+        %h4 十一月
+      %h4 第四阶段
+      %p
+        2pm @ Convention Center
+        %br
+        122 Meyran Ave, Pittsburgh PA
+    .event
+      .date.danger
+        %h1 11
+        %h4 十一月
+      %h4 碰头会
+      %p
+        2pm @ Convention Center
+        %br
+        122 Meyran Ave, Pittsburgh PA
+    .event
+      .date.danger
+        %h1 11
+        %h4 十一月
+      %h4 碰头会
+      %p
+        2pm @ Convention Center
+        %br
+        122 Meyran Ave, Pittsburgh PA
+    .event
+      .date.danger
+        %h1 11
+        %h4 十一月
+      %h4 碰头会
+      %p
+        2pm @ Convention Center
+        %br
+        122 Meyran Ave, Pittsburgh PA
+    .event
+      .date.danger
+        %h1 11
+        %h4 十一月
+      %h4 碰头会
+      %p
+        2pm @ Convention Center
+        %br
+        122 Meyran Ave, Pittsburgh PA
+    .event
+      .date.danger
+        %h1 11
+        %h4 十一月
+      %h4 碰头会
+      %p
+        2pm @ Convention Center
+        %br
+        122 Meyran Ave, Pittsburgh PA
+    %p.load-more
+      %a 更多...
+  .span8
+    #calendar

@@ -1,0 +1,91 @@
+.row
+  .span3
+    %h4.header 过滤
+    .filters
+      / emailer
+      %span.pull-right 4
+      %input#cb3{:type=>"checkbox",:checked=>"checked"}
+      %label{:for=>"cb3"} 来自邮件
+      / admins
+      %span.pull-right 7
+      %input#cb4{:type=>"checkbox",:checked=>"checked"}
+      %label{:for=>"cb4"} 来自管理员
+      / new col: system
+      %h5 系统
+      / system log
+      %span.pull-right 302
+      %input#logs{:type=>"checkbox"}
+      %label{:for=>"logs"} 系统日志
+      / system up
+      %span.pull-right 18
+      %input#system{:type=>"checkbox"}
+      %label{:for=>"system"} 系统启动
+      / system down
+      %span.pull-right 21
+      %input#cb2{:type=>"checkbox"}
+      %label{:for=>"cb2"} 系统关闭
+      / system warning
+      %span.pull-right 51
+      %input#cb8{:type=>"checkbox"}
+      %label{:for=>"cb8"} 系统警告
+      / slow status
+      %span.pull-right 2
+      %input#cb9{:type=>"checkbox"}
+      %label{:for=>"cb9"} 特殊状态
+  .span9
+    .btn-group.pull-right
+      %button.btn
+        %i.icon-refresh
+      %button.btn.dropdown-toggle{'data-toggle'=>"dropdown"}
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href=>"#"} Turn Live Update On
+        %li
+          %a{:href=>"#"} Turn Live Update Off
+        %li
+          %a{:href=>"#"} Disable
+    %h4.header 事件流
+    .stream
+      .item
+        .stream-icon.stream-success
+          %i.icon-off.icon-white
+        %p.date 2014 四月 25
+        %h4 系统
+        .row
+          %p.span6
+            Server Status returned to "Up"
+      .item
+        .stream-icon.stream-danger
+          %i.icon-off.icon-white
+        %p.date 2014 四月 24
+        %h4 系统
+        .row
+          %p.span6
+            Server down. Error 314 "undefined function inspect"
+      .item
+        .stream-icon.stream-warning
+          %i.icon-off.icon-white
+        %p.date 2014 四月 12
+        %h4 系统
+        .row
+          %p.span6
+            Server warning. Error 314 "undefined function inspect"
+      .item
+        .stream-icon.stream-info
+          %i.icon-envelope.icon-white
+        %p.date 2014 四月 12
+        %h4 邮件
+        .row
+          %p.span6
+            Newsletter cron job completed in 42m
+      .item
+        .stream-icon.stream-warning
+          %i.icon-warning-sign.icon-white
+        %p.date 2014 四月 12
+        %h4 系统
+        .row
+          %p.span6
+            Server warning. Error 314 "undefined function inspect"
+/ %h1 Stream#index
+/ %p Find me in app/views/stream/index.html.haml
