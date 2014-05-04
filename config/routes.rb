@@ -1,9 +1,14 @@
 Ovms::Application.routes.draw do
+  
   root :to => 'home#index'
   get '/index' =>'home#index2'
   match '/database' ,to: 'vulndb#index' ,via:'get'
   match '/stream' ,to: 'stream#index' ,via:'get'
   match '/calendar' ,to: 'calendar#index' ,via:'get'
+  match '/scan' ,to: 'scan#index' ,via:'get'
+  match '/predict' ,to: 'predict#index' ,via:'get'
+  match '/log' ,to: 'log#index' ,via:'get'
+  match '/setting' ,to: 'setting#index' ,via:'get'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

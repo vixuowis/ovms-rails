@@ -33,13 +33,13 @@
             <ul>
               <li><a href="/" class="<%= 'active' if current_page?(root_path) %>"><i class="batch home"></i><br />主页</a></li>
               <li><span class="label label-important pull-right">12</span><a href="/stream" class="<%= 'active' if current_page?(stream_path) %>"><i class="batch stream"></i><br />事件流</a></li>
-              <li><a href="paragraphs.html"><i class="batch quill"></i><br />漏洞预测</a></li>
+              <li><a href="/predict" class="<%= 'active' if current_page?(predict_path) %>"><i class="batch quill"></i><br />漏洞预测</a></li>
               <li><a href="/calendar" class="<%= 'active' if current_page?(calendar_path) %>"><i class="batch calendar"></i><br />漏洞日历</a></li>
               <li><a href="/database" class="<%= 'active' if current_page?(database_path) %>"><i class="batch database"></i><br />漏洞库</a></li>
-              <li><span class="label label-important pull-right">3</span><a href="messages.html"><i class="batch plane"></i><br />漏洞扫描</a></li>
-              <li><a href="faq.html"><i class="batch forms"></i><br />系统日志</a></li>
+              <li><span class="label label-important pull-right">3</span><a href="/scan" class="<%= 'active' if current_page?(scan_path) %>"><i class="batch plane"></i><br />漏洞扫描</a></li>
+              <li><a href="/log" class="<%= 'active' if current_page?(log_path) %>"><i class="batch forms"></i><br />系统日志</a></li>
               <!-- <li><a href="users.html"><i class="batch users"></i><br />帮助</a></li> -->
-              <li><a href="settings.html"><i class="batch settings"></i><br />设置</a></li>
+              <li><a href="/setting" class="<%= 'active' if current_page?(setting_path) %>"><i class="batch settings"></i><br />设置</a></li>
             </ul>
           </div>
         </div>
