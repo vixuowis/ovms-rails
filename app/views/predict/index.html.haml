@@ -1,2 +1,21 @@
-%h1 Predict#index
-%p Find me in app/views/predict/index.html.haml
+.row 
+  .span12
+    %h4.header 漏洞预测
+    .container
+      .row
+        .span2
+          %h4 发生趋势预测
+          %p.sub
+            %small 
+              利用时间序列聚类算法，我们可以从CVSS数值和漏洞报告日期预测出有周期规律的漏洞发生趋势。
+        .span10
+          %p graph
+    .container.divide
+      .row
+        .span2
+          %h4 发生趋势预测
+          %p.sub
+            %small 
+              利用朴素贝叶斯算法，我们可以根据大量先验知识获得未知漏洞发生的可能性，预测出具体哪一种软件或模块符合漏洞发生模式。
+        .span10
+          %p graph
