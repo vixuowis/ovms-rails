@@ -1,2 +1,34 @@
-%h1 Scan#index
-%p Find me in app/views/scan/index.html.haml
+.row
+  .span12
+    %h4.header 漏洞扫描
+    .row
+      .span1
+        目标主机
+      .span3{:style=>"width:200px;"}
+        %select{:name => ""}
+          %option{:value => "1"} Windows 8 / 192.168.1.1
+          %option{:value => "2"} Ubuntu 14.04 / 192.168.1.2
+          %option{:value => "3"} Redhat 5 / 192.168.1.3
+      .span8
+        %button.btn-small.btn-success 添加主机
+    .row
+      .span1
+        连接状态
+      .span11
+        %span.label.label-success 良好
+    %br/ 
+    .row
+      .span12
+        %button.btn.btn-primary 开始扫描
+    .row
+      .span12
+        %h5 目标控制台输出
+        %textarea.span12{:rows => "10"} 
+    .row
+      .span12
+        .alert.alert-success
+          %h4 成功!
+          点击按钮以查看远程报告。
+    .row
+      .span12
+        %button.btn.btn-primary 查看报告
