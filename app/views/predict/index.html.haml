@@ -1,6 +1,17 @@
 .row 
   .span12
     %h4.header 漏洞预测
+    .row
+      .span1
+        目标主机
+      .span3{:style=>"width:200px;"}
+        %select{:name => ""}
+          %option{:value => "1"} Windows 8 / 192.168.1.1
+          %option{:value => "2"} Ubuntu 14.04 / 192.168.1.2
+          %option{:value => "3"} Redhat 5 / 192.168.1.3
+      .span8
+        %button.btn-small.btn-success 添加主机
+    %br/ 
     .container
       .row
         .span2
@@ -13,9 +24,18 @@
     .container.divide
       .row
         .span2
-          %h4 发生趋势预测
+          %h4 发生位置预测
           %p.sub
             %small 
               利用朴素贝叶斯算法，我们可以根据大量先验知识获得未知漏洞发生的可能性，预测出具体哪一种软件或模块符合漏洞发生模式。
+        .span10
+          %p graph
+    .container.divide
+      .row
+        .span2
+          %h4 智能预测排序
+          %p.sub
+            %small 
+              综合以上两种方法，根据目标机状态，生成漏洞发生的预测顺序列表，管理员可根据该列表重点排查相关漏洞。
         .span10
           %p graph

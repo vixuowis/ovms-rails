@@ -1,7 +1,3 @@
-require 'mongo'
-require 'date'
-include Mongo
-
 class HomeController < ApplicationController
   def index
   	# 首页趋势图数据

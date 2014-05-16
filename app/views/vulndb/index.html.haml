@@ -1,29 +1,37 @@
 .row
   .span12
     / %a.btn.pull-right{:href=>"#newUserModal", 'data-toggle'=>'modal'} New User
-    %h4.header CVE漏洞库（1120 条来自NVD，1532 条来自CVE）
+    %h4.header 
+      = "CVE漏洞库（共 #{@cve_count} 条来自NVD）"
+    = render 'vulndb/pagination'
     %table.table.table-striped.sortable
       %thead
         %tr
           %th{:style=>"min-width:110px"} CVE ID
+          %th{:style=>"min-width:80px"} CWE ID
           %th CVSS
           %th 漏洞描述
           %th{:style=>"min-width:80px"} 发布
           %th{:style=>"min-width:80px"} 最近修改
-          %th 状态
+
       %tbody
-        %tr
-          %td CVE-2014-0053
-          %td 5.0
-          %td 
-            The default configuration of the Resources plugin 1.0.0 before 1.2.6 for Pivotal Grails 2.0.0 before 2.3.6 does not properly restrict access to files in the WEB-INF directory, which allows remote attackers to obtain sensitive information via a direct request.  NOTE: this identifier has been SPLIT due to different researchers and different vulnerability types. See CVE-2014-2857 for the META-INF variant and CVE-2014-2858 for the directory traversal.
-            %p 
-              详细:
-              %a{:href=>"http://cve.scap.org.cn/CVE-2014-0053.html",:target=>"_blank"} cve.scap.org.cn/CVE-2014-0053.html
-          %td 2014-04-15
-          %td 2014-04-16
-          %td 
-            %span.label.label-warning 新漏洞
+        - @vuln_list.each do |each_vuln|
+          %tr
+            %td
+              %a{:href=>"#{each_vuln[6]}",:target=>"_blank"}
+                = each_vuln[0]
+            %td
+              %a{:href=>"#{each_vuln[7]}",:target=>"_blank"}
+                = each_vuln[1]
+            %td 
+              = each_vuln[2]
+            %td
+              %p
+                = each_vuln[3]
+            %td 
+              = each_vuln[4]
+            %td 
+              = each_vuln[5]
           / %td 
           /   .btn-group
           /     %button.btn Approve
@@ -34,3 +42,4 @@
           /         %a{:href=>"#"} Edit Username
           /         %a{:href=>"#"} Disable Account
           /         %a{:href=>"#"} Destroy
+    = render 'vulndb/pagination'
