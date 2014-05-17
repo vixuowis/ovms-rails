@@ -7,7 +7,7 @@ class VulndbController < ApplicationController
     @cve_count = coll.find.count
 
     # paging
-    n_per_page = 5
+    n_per_page = 10
     @this_page = 1
     if !params[:p].nil? and params[:p].to_i > 0 and params[:p].to_i <= (@cve_count*1.0/n_per_page).ceil
       n_skip = (params[:p].to_i - 1) * n_per_page

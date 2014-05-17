@@ -23,8 +23,19 @@
             %td
               %a{:href=>"#{each_vuln[7]}",:target=>"_blank"}
                 = each_vuln[1]
-            %td 
-              = each_vuln[2]
+            %td
+              - if !each_vuln[2].nil?
+                - if each_vuln[2].to_f>=7.0
+                  %span.badge.badge-important
+                    = each_vuln[2]
+                - elsif each_vuln[2].to_f>=4.0
+                  %span.badge.badge-warning
+                    = each_vuln[2]
+                - else
+                  %span.badge.badge-info
+                    = each_vuln[2]
+              - else
+                %span.badge n/a
             %td
               %p
                 = each_vuln[3]

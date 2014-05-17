@@ -16,7 +16,7 @@ def_count = 0
 all_def.each do |item|
   begin
   	id = item['metadata']['reference']['ref_id']
-  	id = coll.insert({'_id'=>id,"item"=>item})
+  	id = coll.update({'_id'=>id}, {"$set" => {'_id'=>id,"item"=>item}}, {"upsert"=>true})
   rescue
   end
   puts "#{id}"

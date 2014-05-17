@@ -5,6 +5,7 @@ Ovms::Application.routes.draw do
   match '/database' ,to: 'vulndb#index' ,via:'get'
   match '/stream' ,to: 'stream#index' ,via:'get'
   match '/calendar' ,to: 'calendar#index' ,via:'get'
+  match '/getcalendar' ,to: 'calendar#getcalendar' ,via:'get'
   match '/scan' ,to: 'scan#index' ,via:'get'
   match '/predict' ,to: 'predict#index' ,via:'get'
   match '/log' ,to: 'log#index' ,via:'get'

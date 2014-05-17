@@ -11,62 +11,68 @@
 %script{:src=>"#{asset_path('setup.js')}"}
 .row
   .span4#events
-    %h4 Upcoming
-    .event
-      .date.success
-        %h1 14
-        %h4 十一月
-      %h4 第四阶段
-      %p
-        2pm @ Convention Center
-        %br
-        122 Meyran Ave, Pittsburgh PA
-    .event
-      .date.danger
-        %h1 11
-        %h4 十一月
-      %h4 碰头会
-      %p
-        2pm @ Convention Center
-        %br
-        122 Meyran Ave, Pittsburgh PA
-    .event
-      .date.danger
-        %h1 11
-        %h4 十一月
-      %h4 碰头会
-      %p
-        2pm @ Convention Center
-        %br
-        122 Meyran Ave, Pittsburgh PA
-    .event
-      .date.danger
-        %h1 11
-        %h4 十一月
-      %h4 碰头会
-      %p
-        2pm @ Convention Center
-        %br
-        122 Meyran Ave, Pittsburgh PA
-    .event
-      .date.danger
-        %h1 11
-        %h4 十一月
-      %h4 碰头会
-      %p
-        2pm @ Convention Center
-        %br
-        122 Meyran Ave, Pittsburgh PA
-    .event
-      .date.danger
-        %h1 11
-        %h4 十一月
-      %h4 碰头会
-      %p
-        2pm @ Convention Center
-        %br
-        122 Meyran Ave, Pittsburgh PA
-    %p.load-more
-      %a 更多...
+    %h4 本月高危漏洞
+    - @high_cvss_list.each do |item|
+      .event
+        .date.danger
+          %h1 
+            = item[:date]
+          %h4 
+            = item[:month]
+        %h4
+          %a{:href => "#{item[:url]}"} 
+            = item[:id]
+          %span.badge.badge-important{:style=>"vertical-align: top; margin-top:1px; margin-left:5px;"}
+            = item[:cvss]
+        %p
+          = item[:summary]
+            
+    / .event
+    /   .date.danger
+    /     %h1 11
+    /     %h4 十一月
+    /   %h4 碰头会
+    /   %p
+    /     2pm @ Convention Center
+    /     %br
+    /     122 Meyran Ave, Pittsburgh PA
+    / .event
+    /   .date.danger
+    /     %h1 11
+    /     %h4 十一月
+    /   %h4 碰头会
+    /   %p
+    /     2pm @ Convention Center
+    /     %br
+    /     122 Meyran Ave, Pittsburgh PA
+    / .event
+    /   .date.danger
+    /     %h1 11
+    /     %h4 十一月
+    /   %h4 碰头会
+    /   %p
+    /     2pm @ Convention Center
+    /     %br
+    /     122 Meyran Ave, Pittsburgh PA
+    / .event
+    /   .date.danger
+    /     %h1 11
+    /     %h4 十一月
+    /   %h4 碰头会
+    /   %p
+    /     2pm @ Convention Center
+    /     %br
+    /     122 Meyran Ave, Pittsburgh PA
+    / .event
+    /   .date.danger
+    /     %h1 11
+    /     %h4 十一月
+    /   %h4 碰头会
+    /   %p
+    /     2pm @ Convention Center
+    /     %br
+    /     122 Meyran Ave, Pittsburgh PA
+    / %p.load-more
+    /   %a 更多...
   .span8
     #calendar
