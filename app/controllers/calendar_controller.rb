@@ -29,7 +29,7 @@ class CalendarController < ApplicationController
     coll = db["nvdcve"]
     startDate = Time.at(params['start'].to_i).strftime("%F")
     endDate = Time.at(params['end'].to_i).strftime("%F")
-    cursor = coll.find({'publish'=>{'$gte'=>startDate,'$lte'=>endDate}})
+    cursor = coll.find({'publish'=>{'$gte'=>startDate,'$lte'=>endDate}}).sort({'publish'=>1})
     @data = []
     cursor.each do |item|
       if item['cvss'].nil?

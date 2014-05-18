@@ -15,7 +15,7 @@ class VulndbController < ApplicationController
     else 
       n_skip = 0
     end
-    cursor = coll.find.skip(n_skip).limit(n_per_page)
+    cursor = coll.find.sort({'publish'=>-1}).skip(n_skip).limit(n_per_page)
     @first_page = 1
     @last_page = (@cve_count*1.0/n_per_page).ceil
     if @last_page > 5
