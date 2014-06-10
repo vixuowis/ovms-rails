@@ -3,35 +3,72 @@
     %h4.header 过滤
     .filters
       / emailer
-      %span.pull-right 4
-      %input#cb3{:type=>"checkbox",:checked=>"checked"}
-      %label{:for=>"cb3"} 来自邮件
+      %span.pull-right
+        = @filter_list[0][0]
+      - if @filter_list[0][1] 
+        %input#cb1{:type=>"checkbox",:checked=>"checked"}
+      - else
+        %input#cb1{:type=>"checkbox"}
+      %label{:for=>"cb3"} 来自态势评估
       / admins
-      %span.pull-right 7
-      %input#cb4{:type=>"checkbox",:checked=>"checked"}
-      %label{:for=>"cb4"} 来自管理员
+      %span.pull-right
+        = @filter_list[1][0]
+      - if @filter_list[1][1] 
+        %input#cb2{:type=>"checkbox",:checked=>"checked"}
+      - else
+        %input#cb2{:type=>"checkbox"}
+      %label{:for=>"cb4"} 来自漏洞同步
+      / admins
+      %span.pull-right
+        = @filter_list[2][0]
+      - if @filter_list[2][1] 
+        %input#cb3{:type=>"checkbox",:checked=>"checked"}
+      - else
+        %input#cb3{:type=>"checkbox"}
+      %label{:for=>"cb3"} 来自系统
       / new col: system
-      %h5 系统
+      %h5 态势评估
       / system log
-      %span.pull-right 302
-      %input#logs{:type=>"checkbox"}
-      %label{:for=>"logs"} 系统日志
+      %span.pull-right
+        = @filter_list[3][0]
+      - if @filter_list[3][1] 
+        %input#cb4{:type=>"checkbox",:checked=>"checked"}
+      - else
+        %input#cb4{:type=>"checkbox"}
+      %label{:for=>"cb4"} 预评估“严重”
       / system up
-      %span.pull-right 18
-      %input#system{:type=>"checkbox"}
-      %label{:for=>"system"} 系统启动
+      %span.pull-right
+        = @filter_list[4][0]
+      - if @filter_list[4][1] 
+        %input#cb5{:type=>"checkbox",:checked=>"checked"}
+      - else
+        %input#cb5{:type=>"checkbox"}
+      %label{:for=>"cb5"} 预评估“中等”
       / system down
-      %span.pull-right 21
-      %input#cb2{:type=>"checkbox"}
-      %label{:for=>"cb2"} 系统关闭
+      %span.pull-right
+        = @filter_list[5][0]
+      - if @filter_list[6][1] 
+        %input#cb6{:type=>"checkbox",:checked=>"checked"}
+      - else
+        %input#cb6{:type=>"checkbox"}
+      %label{:for=>"cb6"} 预评估“轻微”
+      %h5 漏洞同步
       / system warning
-      %span.pull-right 51
-      %input#cb8{:type=>"checkbox"}
-      %label{:for=>"cb8"} 系统警告
+      %span.pull-right
+        = @filter_list[6][0]
+      - if @filter_list[6][1] 
+        %input#cb7{:type=>"checkbox",:checked=>"checked"}
+      - else
+        %input#cb7{:type=>"checkbox"}
+      %label{:for=>"cb7"} 新高危漏洞
       / slow status
-      %span.pull-right 2
-      %input#cb9{:type=>"checkbox"}
-      %label{:for=>"cb9"} 特殊状态
+      %span.pull-right
+        = @filter_list[7][0]
+      - if @filter_list[7][1] 
+        %input#cb8{:type=>"checkbox",:checked=>"checked"}
+      - else
+        %input#cb8{:type=>"checkbox"}
+      %label{:for=>"cb8"} 上月漏洞频繁发生平台
   .span9
     .btn-group.pull-right
       %button.btn
@@ -47,45 +84,16 @@
           %a{:href=>"#"} Disable
     %h4.header 事件流
     .stream
-      .item
-        .stream-icon.stream-success
-          %i.icon-off.icon-white
-        %p.date 2014 四月 25
-        %h4 系统
-        .row
-          %p.span6
-            Server Status returned to "Up"
-      .item
-        .stream-icon.stream-danger
-          %i.icon-off.icon-white
-        %p.date 2014 四月 24
-        %h4 系统
-        .row
-          %p.span6
-            Server down. Error 314 "undefined function inspect"
-      .item
-        .stream-icon.stream-warning
-          %i.icon-off.icon-white
-        %p.date 2014 四月 12
-        %h4 系统
-        .row
-          %p.span6
-            Server warning. Error 314 "undefined function inspect"
-      .item
-        .stream-icon.stream-info
-          %i.icon-envelope.icon-white
-        %p.date 2014 四月 12
-        %h4 邮件
-        .row
-          %p.span6
-            Newsletter cron job completed in 42m
-      .item
-        .stream-icon.stream-warning
-          %i.icon-warning-sign.icon-white
-        %p.date 2014 四月 12
-        %h4 系统
-        .row
-          %p.span6
-            Server warning. Error 314 "undefined function inspect"
+      -@events_list.each do |event|
+        .item
+          .stream-icon{:class=>"#{event[:type]}"}
+            %i.icon-white{:class=>"#{event[:status]}"}
+          %p.date
+            = event[:time]
+          %h4
+            = event[:name]
+          .row
+            %p.span6
+              = event[:desc]
 / %h1 Stream#index
 / %p Find me in app/views/stream/index.html.haml

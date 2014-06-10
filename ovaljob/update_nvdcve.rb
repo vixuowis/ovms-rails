@@ -1,5 +1,6 @@
 require 'crack'
 require 'mongo'
+require '../app/controllers/event_class.rb'
 include Mongo
 
 def update_from_file(filename)
@@ -39,6 +40,7 @@ def update_from_file(filename)
 
   # print vulnerability number
   puts valid_vul_count
+  return valid_vul_count
 end
 
 # (2013..2014).each do |year|
@@ -48,8 +50,10 @@ end
 
 year = "modified"
 `curl -o 'nvdcve/#{year}.xml' http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-#{year}.xml`
-update_from_file("nvdcve/#{year}.xml")
+count = update_from_file("nvdcve/#{year}.xml")
 
-year = "recent"
-`curl -o 'nvdcve/#{year}.xml' http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-#{year}.xml`
-update_from_file("nvdcve/#{year}.xml")
+e = EventClass.new("stream-info","icon-off","漏洞同步","已同步 #{count} 个新漏洞")
+p e.time
+# year = "recent"
+# `curl -o 'nvdcve/#{year}.xml' http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-#{year}.xml`
+# update_from_file("nvdcve/#{year}.xml")
