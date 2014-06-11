@@ -3,6 +3,7 @@
     / %a.btn.pull-right{:href=>"#newUserModal", 'data-toggle'=>'modal'} New User
     %h4.header 
       = "CVE漏洞库（共 #{@cve_count} 条来自NVD）"
+    .btn.btn-primary 同步CVE漏洞 
     = render 'vulndb/pagination'
     %table.table.table-striped.sortable
       %thead

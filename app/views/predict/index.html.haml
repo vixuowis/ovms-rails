@@ -15,12 +15,47 @@
     .container
       .row
         .span2
-          %h4 发生趋势预测
+          %h4 新漏洞CVSS预评估
           %p.sub
             %small 
-              利用时间序列聚类算法，我们可以从CVSS数值和漏洞报告日期预测出有周期规律的漏洞发生趋势。
+              利用朴素贝叶斯算法，我们可以根据大量先验知识获得未知漏洞发生的可能性，预测出新漏洞的估值。
+          .btn.btn-primary 开始预评估
         .span10
-          %p graph
+          - if !@vuln_list.nil?
+            %table.table.table-striped.sortable
+              %thead
+                %tr
+                  %th{:style=>"min-width:110px"} CVE ID
+                  %th 预估CVSS
+                  %th 漏洞描述
+                  %th{:style=>"min-width:80px"} 发布
+                  %th{:style=>"min-width:80px"} 最近修改
+              %tbody
+                - @vuln_list.each do |each_vuln|
+                  %tr
+                    %td
+                      %a{:href=>"#{each_vuln[6]}",:target=>"_blank"}
+                        = each_vuln[0]
+                    %td
+                      - if !each_vuln[1].nil?
+                        - if each_vuln[1].to_f>=7.0
+                          %span.badge.badge-important
+                            = each_vuln[1]
+                        - elsif each_vuln[1].to_f>=4.0
+                          %span.badge.badge-warning
+                            = each_vuln[1]
+                        - else
+                          %span.badge.badge-info
+                            = each_vuln[1]
+                      - else
+                        %span.badge n/a
+                    %td
+                      %p
+                        = each_vuln[2]
+                    %td 
+                      = each_vuln[3]
+                    %td 
+                      = each_vuln[4]
     .container.divide
       .row
         .span2

@@ -89,4 +89,5 @@ gem 'will_paginate', '~> 3.0'
 gem 'redis-rails'
 gem 'mongo'
 gem 'bson_ext'
+gem 'crack'
 

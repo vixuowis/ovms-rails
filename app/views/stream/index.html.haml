@@ -9,7 +9,7 @@
         %input#cb1{:type=>"checkbox",:checked=>"checked"}
       - else
         %input#cb1{:type=>"checkbox"}
-      %label{:for=>"cb3"} 来自态势评估
+      %label{:for=>"cb1"} 来自态势评估
       / admins
       %span.pull-right
         = @filter_list[1][0]
@@ -17,7 +17,7 @@
         %input#cb2{:type=>"checkbox",:checked=>"checked"}
       - else
         %input#cb2{:type=>"checkbox"}
-      %label{:for=>"cb4"} 来自漏洞同步
+      %label{:for=>"cb2"} 来自漏洞同步
       / admins
       %span.pull-right
         = @filter_list[2][0]
@@ -26,32 +26,32 @@
       - else
         %input#cb3{:type=>"checkbox"}
       %label{:for=>"cb3"} 来自系统
-      / new col: system
-      %h5 态势评估
-      / system log
-      %span.pull-right
-        = @filter_list[3][0]
-      - if @filter_list[3][1] 
-        %input#cb4{:type=>"checkbox",:checked=>"checked"}
-      - else
-        %input#cb4{:type=>"checkbox"}
-      %label{:for=>"cb4"} 预评估“严重”
-      / system up
-      %span.pull-right
-        = @filter_list[4][0]
-      - if @filter_list[4][1] 
-        %input#cb5{:type=>"checkbox",:checked=>"checked"}
-      - else
-        %input#cb5{:type=>"checkbox"}
-      %label{:for=>"cb5"} 预评估“中等”
-      / system down
-      %span.pull-right
-        = @filter_list[5][0]
-      - if @filter_list[6][1] 
-        %input#cb6{:type=>"checkbox",:checked=>"checked"}
-      - else
-        %input#cb6{:type=>"checkbox"}
-      %label{:for=>"cb6"} 预评估“轻微”
+      / / new col: system
+      / %h5 态势评估
+      / / system log
+      / %span.pull-right
+      /   = @filter_list[3][0]
+      / - if @filter_list[3][1] 
+      /   %input#cb4{:type=>"checkbox",:checked=>"checked"}
+      / - else
+      /   %input#cb4{:type=>"checkbox"}
+      / %label{:for=>"cb4"} 预评估“严重”
+      / / system up
+      / %span.pull-right
+      /   = @filter_list[4][0]
+      / - if @filter_list[4][1] 
+      /   %input#cb5{:type=>"checkbox",:checked=>"checked"}
+      / - else
+      /   %input#cb5{:type=>"checkbox"}
+      / %label{:for=>"cb5"} 预评估“中等”
+      / / system down
+      / %span.pull-right
+      /   = @filter_list[5][0]
+      / - if @filter_list[6][1] 
+      /   %input#cb6{:type=>"checkbox",:checked=>"checked"}
+      / - else
+      /   %input#cb6{:type=>"checkbox"}
+      / %label{:for=>"cb6"} 预评估“轻微”
       %h5 漏洞同步
       / system warning
       %span.pull-right
@@ -60,7 +60,7 @@
         %input#cb7{:type=>"checkbox",:checked=>"checked"}
       - else
         %input#cb7{:type=>"checkbox"}
-      %label{:for=>"cb7"} 新高危漏洞
+      %label{:for=>"cb7"} 同步信息
       / slow status
       %span.pull-right
         = @filter_list[7][0]
@@ -68,7 +68,7 @@
         %input#cb8{:type=>"checkbox",:checked=>"checked"}
       - else
         %input#cb8{:type=>"checkbox"}
-      %label{:for=>"cb8"} 上月漏洞频繁发生平台
+      %label{:for=>"cb8"} 新高危漏洞（30天内）
   .span9
     .btn-group.pull-right
       %button.btn

@@ -37,6 +37,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     erubis (2.7.0)
     execjs (2.0.2)
     haml (4.0.5)
@@ -97,6 +99,7 @@ GEM
       redis-store (~> 1.1.0)
     redis-store (1.1.4)
       redis (>= 2.2)
+    safe_yaml (1.0.2)
     sass (3.3.5)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -132,6 +135,7 @@ PLATFORMS
 DEPENDENCIES
   bson_ext
   coffee-rails (= 4.0.1)
+  crack
   haml-rails
   hpricot
   jbuilder (= 1.0.2)

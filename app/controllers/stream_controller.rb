@@ -1,16 +1,27 @@
 class StreamController < ApplicationController
   def index
+
+    mongo_client = MongoClient.new("localhost", 27017)
+    db = mongo_client.db("ovms_db")
+    coll = db["events"]
+
+    # 设置已读
+    coll.update({},{'$set'=>{:read=>1}},{:multi=>true})
+
+    # 同步信息
+    sync_info_num = coll.find({'infotype'=>'sync'}).count
+
     @filter_list = [
-      [37,false], #态势评估
+      [37,true], #态势评估
       [53,true], #漏洞同步
-      [10,false], #系统
+      [10,true], #系统
 
       [12,true], #严重
-      [4,false], #中等
-      [21,false], #轻微
+      [4,true], #中等
+      [21,true], #轻微
 
-      [51,true], #新高危漏洞
-      [2,true] #上月频繁发生平台
+      [sync_info_num,true], #同步信息
+      [2,true] #高危漏洞
     ]
 
     get_events_list()
@@ -18,7 +29,7 @@ class StreamController < ApplicationController
     #   {:type=>"stream-danger", :status=>"icon-warning-sign", :name=>"态势评估", :time=>"2014 五月 20", :desc=>"CVE-2014-3790的CVSS值可能为“高危”。
     #         漏洞描述：Ruby vSphere Console (RVC) in VMware vCenter Server Appliance allows remote authenticated users to execute arbitrary commands as root by escaping from a chroot jail."},
     #   {:type=>"stream-success", :status=>"icon-off", :name=>"系统", :time=>"2014 五月 24", :desc=>"Server is up."},
-    #   {:type=>"stream-info", :status=>"icon-off", :name=>"漏洞同步", :time=>"2014 五月 02", :desc=>"上月高危漏洞平台：Windows（234），Red Hat（53）"},
+    #   {:type=>"stream-info", :status=>"icon-warning-sign", :name=>"漏洞同步", :time=>"2014 五月 02", :desc=>"上月高危漏洞平台：Windows（234），Red Hat（53）"},
     #   {:type=>"stream-danger", :status=>"icon-warning-sign", :name=>"态势评估", :time=>"2014 五月 01", :desc=>"CVE-2014-0075的CVSS值可能为“高危”。
     #         漏洞描述：Integer overflow in the parseChunkHeader function in java/org/apache/coyote/http11/filters/ChunkedInputFilter.java in Apache Tomcat before 6.0.40, 7.x before 7.0.53, and 8.x before 8.0.4 allows remote attackers to cause a denial of service (resource consumption) via a malformed chunk size in chunked transfer coding of a request during the streaming of data."},
     #   {:type=>"stream-danger", :status=>"icon-warning-sign", :name=>"态势评估", :time=>"2014 四月 30", :desc=>"CVE-2014-3793的CVSS值可能为“高危”。
@@ -31,7 +42,7 @@ def get_events_list
   mongo_client = MongoClient.new("localhost", 27017)
   db = mongo_client.db("ovms_db")
   coll = db["events"]
-  cursor = coll.find
+  cursor = coll.find.sort({'_id'=>-1})
   @events_list = []
   cursor.each do |item|
     @events_list.append({
