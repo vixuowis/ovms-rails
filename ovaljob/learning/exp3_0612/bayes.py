@@ -216,35 +216,115 @@ def test_4class(features_file,test_data):
   return correct_h,correct_m,correct_l,total,correct_h_m,correct_h_l,correct_m_h,correct_m_l,correct_l_h,correct_l_m
 
 
+def apply_result(features_file,test_data):
+    # 哈希统计表
+  features = {}
+  f = codecs.open(features_file,'r','utf-8')
+  for line in f:
+    parts = line.split(',')
+    features[parts[0]] = []
+    for i in range(1,len(parts)):
+      features[parts[0]].append(float(parts[i]))
+    # print parts[0],features[parts[0]]
+
+  class_number = len(parts) - 1
+
+  f_1 = codecs.open("test_1.txt",'w','utf-8')
+  f_2 = codecs.open("test_2.txt",'w','utf-8')
+  f_3 = codecs.open("test_3.txt",'w','utf-8')
+
+  for index,item in enumerate(test_data):
+    _id = item['_id']
+    cvss = item['cvss']
+    print _id,cvss,item['publish']
+    text = item['item']['vuln:summary']
+    tokens = tokenizer(_id,text)
+
+    if "** REJECT **" in text:
+      coll.update({'_id':_id},{'$set':{'predict_cvss':None}})
+      continue
+    # 分词，得到该样本特征
+    cutresult = tokenizer(_id,text)
+    # 对不同类别计算该文本特征所对应的后验概率
+    ## 初始化
+    bayes_result = {}
+    bayes_result[index] = []
+    ## 对于每个词 计算freq 直接乘回去
+    for i in range(class_number):
+      freq = 1
+      for word in cutresult:
+        if features.has_key(word):
+          freq = freq * features[word][i]
+        # print i,word,freq
+      bayes_result[index].append(freq)
+      
+    # print bayes_result[index]
+    maxval = max(bayes_result[index])
+    if bayes_result[index][0] == maxval:
+      print "very high!"
+      f_1.write(str(bayes_result[index][0])+" "+text+"\n")
+      coll.update({'_id':_id},{'$set':{'predict_cvss':7.1}})
+    elif bayes_result[index][1] == maxval:
+      print "high!"
+      coll.update({'_id':_id},{'$set':{'predict_cvss':4.1}})
+      f_2.write(str(bayes_result[index][1])+" "+text+"\n")
+    elif bayes_result[index][2] == maxval:
+      print "medium!"
+      coll.update({'_id':_id},{'$set':{'predict_cvss':0.1}})
+      f_3.write(str(bayes_result[index][2])+" "+text+"\n")
+
+  f_1.close()
+  f_2.close()
+  f_3.close()
+
 
 for i in range(1):
   client = MongoClient('localhost', 27017)
   db = client['ovms_db']
   coll = db['nvdcve']
-  rs_all = coll.find()
-  data = []
-  for item in rs_all:
-    data.append(item)
-  random.shuffle(data)
-  train_data = data[:30000]
-  test_data = data[-2000:]
 
-  i1,i2,i3,i = training(train_data)
-  # 59090 25634 29383 4073
-  merge_class(["1_stat_hash.txt","2_stat_hash.txt","3_stat_hash.txt"],"merge_features.txt",[25634,29383,4073],59090)
-  correct_all = 0
-  total_all = 0
-  correct_h,correct_m,correct_l,total,c1,c2,c3,c4,c5,c6 = test_4class("merge_features.txt",test_data)
-  correct_all += (correct_h+correct_m+correct_l)
-  total_all += total
+  # # 训练
+  # rs_all = coll.find()
+  # data = []
+  # for item in rs_all:
+  #   if "** REJECT **" in item['item']['vuln:summary']:
+  #     continue
+  #   # print item
+  #   data.append(item)
+  # train_data = data[:30000]
+
+  # i1,i2,i3,i = training(train_data)
+  # # 59090 25634 29383 4073
+  # merge_class(["1_stat_hash.txt","2_stat_hash.txt","3_stat_hash.txt"],"merge_features.txt",[i1,i2,i3],i)
+  
+
+  # 测试
+  rs_all2 = coll.find({'cvss':None})
+  data2 = []
+  for item in rs_all2:
+    # if "** REJECT **" in item['item']['vuln:summary']:
+    #   continue
+    print item
+    data2.append(item)
+  # print len(data)
+  test_data = data2
+
+  apply_result("merge_features.txt",test_data)
+
+  
+  # correct_all = 0
+  # total_all = 0
+  # correct_h,correct_m,correct_l,total,c1,c2,c3,c4,c5,c6 = test_4class("merge_features.txt",test_data)
+  # correct_all += (correct_h+correct_m+correct_l)
+  # total_all += total
 
   # print correct_h*1.0/total,correct_m*1.0/total,correct_l*1.0/total
   # print correct_h,correct_m,correct_l
   # print c1*1.0/total,c2*1.0/total,c3*1.0/total,c4*1.0/total,c5*1.0/total,c6*1.0/total
   # print c1,c2,c3,c4,c5,c6
-  print (c1+c3+c4+c6),(c1+c3+c4+c6)*1.0/total
-  print (c2+c5),(c2+c5)*1.0/total
-print "correct=",correct_all,"total=",total_all,"correct_rate=",(correct_all*1.0/total_all)
-print "wrong=",(total-correct_all),"total=",total_all,"wrong_rate=",((total-correct_all)*1.0/total_all)
+#   print (c1+c3+c4+c6),(c1+c3+c4+c6)*1.0/total
+#   print (c2+c5),(c2+c5)*1.0/total
+# print "correct=",correct_all,"total=",total_all,"correct_rate=",(correct_all*1.0/total_all)
+# print "wrong=",(total-correct_all),"total=",total_all,"wrong_rate=",((total-correct_all)*1.0/total_all)
 
 

@@ -51,4 +51,18 @@ class VulndbController < ApplicationController
         ])
     end
 	end
+
+  def sync_vuln
+    begin
+      rs= `cd ~/Playground/ovms-rails/ovaljob/ && ruby update_nvdcve.rb`
+      puts rs
+      respond_to do |format|
+        format.json{render :json=>{"success"=>true}}
+      end
+    rescue
+      respond_to do |format|
+        format.json{render :json=>{"success"=>false}}
+      end
+    end
+  end
 end

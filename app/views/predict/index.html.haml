@@ -1,3 +1,5 @@
+%script{:src=>"#{asset_path('jquery.rest.js')}"}
+%script{:src=>"#{asset_path('predict.js.coffee')}"}
 .row 
   .span12
     %h4.header 漏洞预测
@@ -19,7 +21,7 @@
           %p.sub
             %small 
               利用朴素贝叶斯算法，我们可以根据大量先验知识获得未知漏洞发生的可能性，预测出新漏洞的估值。
-          .btn.btn-primary 开始预评估
+          #start.btn.btn-primary 开始预评估
         .span10
           - if !@vuln_list.nil?
             %table.table.table-striped.sortable
@@ -56,21 +58,21 @@
                       = each_vuln[3]
                     %td 
                       = each_vuln[4]
-    .container.divide
-      .row
-        .span2
-          %h4 发生位置预测
-          %p.sub
-            %small 
-              利用朴素贝叶斯算法，我们可以根据大量先验知识获得未知漏洞发生的可能性，预测出具体哪一种软件或模块符合漏洞发生模式。
-        .span10
-          %p graph
-    .container.divide
-      .row
-        .span2
-          %h4 智能预测排序
-          %p.sub
-            %small 
-              综合以上两种方法，根据目标机状态，生成漏洞发生的预测顺序列表，管理员可根据该列表重点排查相关漏洞。
-        .span10
-          %p graph
+    / .container.divide
+    /   .row
+    /     .span2
+    /       %h4 发生位置预测
+    /       %p.sub
+    /         %small 
+    /           利用朴素贝叶斯算法，我们可以根据大量先验知识获得未知漏洞发生的可能性，预测出具体哪一种软件或模块符合漏洞发生模式。
+    /     .span10
+    /       %p graph
+    / .container.divide
+    /   .row
+    /     .span2
+    /       %h4 智能预测排序
+    /       %p.sub
+    /         %small 
+    /           综合以上两种方法，根据目标机状态，生成漏洞发生的预测顺序列表，管理员可根据该列表重点排查相关漏洞。
+    /     .span10
+    /       %p graph

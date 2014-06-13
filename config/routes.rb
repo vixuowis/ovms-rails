@@ -11,6 +11,8 @@ Ovms::Application.routes.draw do
   match '/log' ,to: 'log#index' ,via:'get'
   match '/setting' ,to: 'setting#index' ,via:'get'
 
+  match '/learning', to:'predict#learning_caller', via:'get'
+  match '/sync_vuln', to:'vulndb#sync_vuln', via:'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
