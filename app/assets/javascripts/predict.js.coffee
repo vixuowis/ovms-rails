@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
   $('#start').click ->
+    $('#start').attr("disabled",true)
+    $('#start').text("正在评估……")
     $.read(
       '/learning'
       (response)->

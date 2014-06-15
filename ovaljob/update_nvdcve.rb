@@ -48,13 +48,14 @@ end
 #   update_from_file("nvdcve/#{year}.xml")
 # end
 
-year = "modified"
-`curl -o '#{File.dirname(__FILE__)}/nvdcve/#{year}.xml' http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-#{year}.xml`
-count = update_from_file("#{File.dirname(__FILE__)}/nvdcve/#{year}.xml")
-
-year = "recent"
-`curl -o '#{File.dirname(__FILE__)}/nvdcve/#{year}.xml' http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-#{year}.xml`
-count2 =  update_from_file("#{File.dirname(__FILE__)}/nvdcve/#{year}.xml")
-
-e = EventClass.new("sync","漏洞同步","已添加/修订 #{count+count2} 个漏洞，来自NVD")
-p e.time
+if ARGV[0] == "1"
+  year = "modified"
+  `curl -o '#{File.dirname(__FILE__)}/nvdcve/#{year}.xml' http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-#{year}.xml`
+  count = update_from_file("#{File.dirname(__FILE__)}/nvdcve/#{year}.xml")
+  e = EventClass.new("sync","漏洞同步","已添加/修订 #{count} 个漏洞，来自NVD")
+  p e.time
+elsif ARGV[0]=="2"
+  year = "recent"
+  `curl -o '#{File.dirname(__FILE__)}/nvdcve/#{year}.xml' http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-#{year}.xml`
+  count =  update_from_file("#{File.dirname(__FILE__)}/nvdcve/#{year}.xml")
+end

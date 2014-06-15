@@ -1,0 +1,1 @@
+4.77196908053e-47 libdns in ISC BIND 9.10.0 before P2 does not properly handle EDNS options, which allows remote attackers to cause a denial of service (REQUIRE assertion failure and daemon exit) via a crafted packet, as demonstrated by an attack against named, dig, or delv.

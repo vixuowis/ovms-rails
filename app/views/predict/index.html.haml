@@ -3,16 +3,16 @@
 .row 
   .span12
     %h4.header 漏洞预测
-    .row
-      .span1
-        目标主机
-      .span3{:style=>"width:200px;"}
-        %select{:name => ""}
-          %option{:value => "1"} Windows 8 / 192.168.1.1
-          %option{:value => "2"} Ubuntu 14.04 / 192.168.1.2
-          %option{:value => "3"} Redhat 5 / 192.168.1.3
-      .span8
-        %button.btn-small.btn-success 添加主机
+    / .row
+    /   .span1
+    /     目标主机
+    /   .span3{:style=>"width:200px;"}
+    /     %select{:name => ""}
+    /       %option{:value => "1"} Windows 8 / 192.168.1.1
+    /       %option{:value => "2"} Ubuntu 14.04 / 192.168.1.2
+    /       %option{:value => "3"} Redhat 5 / 192.168.1.3
+    /   .span8
+    /     %button.btn-small.btn-success 添加主机
     %br/ 
     .container
       .row
@@ -20,7 +20,7 @@
           %h4 新漏洞CVSS预评估
           %p.sub
             %small 
-              利用朴素贝叶斯算法，我们可以根据大量先验知识获得未知漏洞发生的可能性，预测出新漏洞的估值。
+              利用朴素贝叶斯算法，我们可以根据大量先验知识获得未知漏洞发生的可能性，预测出新漏洞的估值。右侧会显示30天内漏洞的评估值，评估后仍为n/a的条目为废弃条目。
           #start.btn.btn-primary 开始预评估
         .span10
           - if !@vuln_list.nil?

@@ -1,10 +1,20 @@
 .pagination.pull-right{:style=>"margin-top:0px; margin-bottom:0px;"}
   %ul
-    %li
-      %a{:href => "?p=#{@first_page}"} &laquo;
-    - @paging_list.each do |each_page|
-      %li{:class=>"#{"active" if @this_page==each_page}"}
-        %a{:href => "?p=#{each_page}"}
-          = each_page
-    %li
-      %a{:href => "?p=#{@last_page}"} &raquo;
+    - if params[:sort].nil?
+      %li
+        %a{:href => "?p=#{@first_page}"} &laquo;
+      - @paging_list.each do |each_page|
+        %li{:class=>"#{"active" if @this_page==each_page}"}
+          %a{:href => "?p=#{each_page}"}
+            = each_page
+      %li
+        %a{:href => "?p=#{@last_page}"} &raquo;
+    - else
+      %li
+        %a{:href => "?sort=#{params[:sort]}&p=#{@first_page}"} &laquo;
+      - @paging_list.each do |each_page|
+        %li{:class=>"#{"active" if @this_page==each_page}"}
+          %a{:href => "?sort=#{params[:sort]}&p=#{each_page}"}
+            = each_page
+      %li
+        %a{:href => "?sort=#{params[:sort]}&p=#{@last_page}"} &raquo;

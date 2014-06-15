@@ -16,19 +16,29 @@
         连接状态
       .span11
         %span.label.label-success 良好
-    %br/ 
-    .row
-      .span12
-        %button.btn.btn-primary 开始扫描
-    .row
-      .span12
-        %h5 目标控制台输出
-        %textarea.span12{:rows => "10"} 
-    .row
-      .span12
-        .alert.alert-success
-          %h4 成功!
-          点击按钮以查看远程报告。
-    .row
-      .span12
-        %button.btn.btn-primary 查看报告
+    %hr/
+    .table-panel
+      %h4 该平台检测报告列表
+      %table.table.table-striped
+        %thead
+          %tr
+            %th 报告名称
+            %th 检测时间
+            %th 检测OVAL
+            %th 报告地址
+    / %br/ 
+    / .row
+    /   .span12
+    /     %button.btn.btn-primary 开始扫描
+    / .row
+    /   .span12
+    /     %h5 目标控制台输出
+    /     %textarea.span12{:rows => "10"} 
+    / .row
+    /   .span12
+    /     .alert.alert-success
+    /       %h4 成功!
+    /       点击按钮以查看远程报告。
+    / .row
+    /   .span12
+    /     %button.btn.btn-primary 查看报告

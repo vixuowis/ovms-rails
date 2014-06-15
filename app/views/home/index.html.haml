@@ -14,6 +14,7 @@
   =render :partial => "home/leftbar"
   / right bar
   .span10
+    %a{:name => "mark0"} 
     %h4.header 最近30天漏洞趋势图（新发布+修订）
     #d3{:style=>"width:100%; margin-top:-30px"}
     %input#trends-data{:type=>"hidden",:value=> "#{@trends_data}"}
@@ -32,4 +33,72 @@
       .span3.knob
         %h4 新漏洞 CVSS[N/A]
         %input.dial{:type => "text",:value=>"#{@panel_data[0]}","data-width"=>"100","data-max"=>"#{@panel_data.sum}","data-fgcolor"=>"#FFA93C","data-readonly"=>"true"}/
+    %hr/ 
+    .row-fluid
+      .span9
+        %a{:name => "mark1"} 
+        %h4 各系平台漏洞发生统计
+        .widget
+          %table{:style=>"width:100%"}
+            %tr
+              %td.bar-label Unix
+              %td.bar-number 
+                = @unix_count
+              %td
+                .progress
+                  .bar{:style=>"width:#{@unix_rate}%"}
+            %tr
+              %td.bar-label Windows
+              %td.bar-number 
+                = @windows_count
+              %td
+                .progress
+                  .bar{:style=>"width:#{@windows_rate}%"}
+            %tr
+              %td.bar-label Mac OS
+              %td.bar-number
+                = @apple_count
+              %td
+                .progress
+                  .bar{:style=>"width:#{@apple_rate}%"}
+            %tr
+              %td.bar-label Cisco IOS
+              %td.bar-number
+                = @ios_count
+              %td
+                .progress
+                  .bar{:style=>"width:#{@ios_rate}%"}
+            / %tr
+            /   %td.bar-label Cisco PIX
+            /   %td.bar-number
+            /     = @cisco_count
+            /   %td
+            /     .progress
+            /       .bar{:style=>"width:#{@cisco_rate}%"}
+            / %tr
+            /   %td.bar-label Other
+            /   %td.bar-number
+            /     = @other_count
+            /   %td
+            /     .progress
+            /       .bar{:style=>"width:#{@other_rate}%"}
+    %hr/ 
+    .row-fluid
+      .span9
+        .table-panel
+          %a{:name => "mark2"} 
+          %h4 具体平台漏洞发生统计（前20位）
+          %table.table.table-striped.sortable
+            %thead
+              %tr
+                %th 平台名称
+                %th 数量
+            %tbody
+              -@platform_list.each do |item|
+                %tr
+                  %td
+                    = item[0]
+                  %td
+                    = item[1]
+
 %script{:src=>"#{asset_path('d3-setup.js')}"}

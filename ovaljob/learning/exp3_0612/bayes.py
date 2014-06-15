@@ -263,14 +263,14 @@ def apply_result(features_file,test_data):
     if bayes_result[index][0] == maxval:
       print "very high!"
       f_1.write(str(bayes_result[index][0])+" "+text+"\n")
-      coll.update({'_id':_id},{'$set':{'predict_cvss':7.1}})
+      coll.update({'_id':_id},{'$set':{'predict_cvss':7.0}})
     elif bayes_result[index][1] == maxval:
       print "high!"
-      coll.update({'_id':_id},{'$set':{'predict_cvss':4.1}})
+      coll.update({'_id':_id},{'$set':{'predict_cvss':4.0}})
       f_2.write(str(bayes_result[index][1])+" "+text+"\n")
     elif bayes_result[index][2] == maxval:
       print "medium!"
-      coll.update({'_id':_id},{'$set':{'predict_cvss':0.1}})
+      coll.update({'_id':_id},{'$set':{'predict_cvss':1.0}})
       f_3.write(str(bayes_result[index][2])+" "+text+"\n")
 
   f_1.close()

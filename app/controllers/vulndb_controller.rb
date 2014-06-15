@@ -15,7 +15,42 @@ class VulndbController < ApplicationController
     else 
       n_skip = 0
     end
-    cursor = coll.find.sort({'publish'=>-1}).skip(n_skip).limit(n_per_page)
+
+    sort_by = 'publish'
+    direct = -1
+    if params[:sort]=='publishup'
+      sort_by = 'publish'
+      direct = 1
+    elsif params[:sort]=='publishdown'
+      sort_by = 'publish'
+      direct = -1
+    elsif params[:sort]=='modifyup'
+      sort_by = 'modify'
+      direct = 1
+    elsif params[:sort]=='modifydown'
+      sort_by = 'modify'
+      direct = -1
+    elsif params[:sort]=='cvssup'
+      sort_by = 'cvss'
+      direct = 1
+    elsif params[:sort]=='cvssdown'
+      sort_by = 'cvss'
+      direct = -1
+    elsif params[:sort]=='cweup'
+      sort_by = 'item.vuln:cwe.id'
+      direct = 1
+    elsif params[:sort]=='cwedown'
+      sort_by = 'item.vuln:cwe.id'
+      direct = -1
+    elsif params[:sort]=='cveup'
+      sort_by = '_id'
+      direct = 1
+    elsif params[:sort]=='cvedown'
+      sort_by = '_id'
+      direct = -1
+    end
+
+    cursor = coll.find.sort({sort_by=>direct}).skip(n_skip).limit(n_per_page)
     @first_page = 1
     @last_page = (@cve_count*1.0/n_per_page).ceil
     if @last_page > 5
@@ -54,8 +89,13 @@ class VulndbController < ApplicationController
 
   def sync_vuln
     begin
-      rs= `cd ~/Playground/ovms-rails/ovaljob/ && ruby update_nvdcve.rb`
-      puts rs
+      if params[:step] == "1"
+        rs= `cd ~/Playground/ovms-rails/ovaljob/ && ruby update_nvdcve.rb 1`
+        puts rs
+      elsif params[:step] == "2"
+        rs= `cd ~/Playground/ovms-rails/ovaljob/ && ruby update_nvdcve.rb 2`
+        puts rs
+      end
       respond_to do |format|
         format.json{render :json=>{"success"=>true}}
       end

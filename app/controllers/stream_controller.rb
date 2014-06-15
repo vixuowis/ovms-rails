@@ -10,11 +10,38 @@ class StreamController < ApplicationController
 
     # 同步信息
     sync_info_num = coll.find({'infotype'=>'sync'}).count
+    predict_info_num = coll.find({'infotype'=>'predict'}).count
+    sys_info_num = coll.find({'infotype'=>'sys'}).count
+
+    @events_list = []
+    
+    if params['predict'].nil? or params['predict']=="1"
+      is_predict = true
+      get_events_list('predict')
+    else
+      is_predict = false
+    end
+
+    if params['sync'].nil? or params['sync']=="1"
+      is_sync = true
+      get_events_list('sync')
+    else
+      is_sync = false
+    end
+
+    if params['sys'].nil? or params['sys']=="1"
+      is_sys = true
+      get_events_list('sys')
+    else
+      is_sys = false
+    end
+
+    @events_list = @events_list.sort{|a,b| a[:id].to_s <=> b[:id].to_s}.reverse
 
     @filter_list = [
-      [37,true], #态势评估
-      [53,true], #漏洞同步
-      [10,true], #系统
+      [predict_info_num,is_predict], #态势评估
+      [sync_info_num,is_sync], #漏洞同步
+      [sys_info_num,is_sys], #系统
 
       [12,true], #严重
       [4,true], #中等
@@ -23,8 +50,7 @@ class StreamController < ApplicationController
       [sync_info_num,true], #同步信息
       [2,true] #高危漏洞
     ]
-
-    get_events_list()
+    
     # @events_list = [
     #   {:type=>"stream-danger", :status=>"icon-warning-sign", :name=>"态势评估", :time=>"2014 五月 20", :desc=>"CVE-2014-3790的CVSS值可能为“高危”。
     #         漏洞描述：Ruby vSphere Console (RVC) in VMware vCenter Server Appliance allows remote authenticated users to execute arbitrary commands as root by escaping from a chroot jail."},
@@ -38,14 +64,15 @@ class StreamController < ApplicationController
   end
 end
 
-def get_events_list
+def get_events_list(type)
   mongo_client = MongoClient.new("localhost", 27017)
   db = mongo_client.db("ovms_db")
   coll = db["events"]
-  cursor = coll.find.sort({'_id'=>-1})
-  @events_list = []
+  cursor = coll.find({'infotype'=>type}).sort({'_id'=>-1})
+
   cursor.each do |item|
     @events_list.append({
+      :id=>item['_id'],
       :type=>item['type'],
       :status=>item['status'],
       :name=>item['name'],

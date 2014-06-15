@@ -1,32 +1,32 @@
 %script{:src=>"#{asset_path('jquery.rest.js')}"}
-%script{:src=>"#{asset_path('vulndb.js.coffee')}"}
+%script{:src=>"#{asset_path('oval.js.coffee')}"}
 .row
   .span12
     / %a.btn.pull-right{:href=>"#newUserModal", 'data-toggle'=>'modal'} New User
     %h4.header 
-      = "CVE漏洞库（共 #{@cve_count} 条来自NVD）"
+      = "OVAL漏洞库（共 #{@cve_count} 条来自MITRE）"
     #sync-bar.progress.progress-striped.active{:style=>"100px;"}
       .bar{:style=>"width: 0%"}
-    #sync.btn.btn-primary 同步CVE漏洞
+    #sync.btn.btn-primary 同步OVAL漏洞
     = render 'vulndb/pagination'
     %table.table.table-striped
       %thead
         %tr
-          %th{:style=>"min-width:110px"}
-            - if params[:sort]=="cveup"
-              %a{:href => "?sort=cvedown"} CVE ID
+          %th{:style=>"min-width:100px; max-width:100px;"}
+            - if params[:sort]=="ovalup"
+              %a{:href => "?sort=ovaldown"} OVAL ID
             - else
-              %a{:href => "?sort=cveup"} CVE ID
+              %a{:href => "?sort=ovalup"} OVAL ID
           %th{:style=>"min-width:80px"}
-            - if params[:sort]=="cweup"
-              %a{:href => "?sort=cwedown"} CWE ID
+            - if params[:sort]=="classup"
+              %a{:href => "?sort=classdown"} 类别
             - else
-              %a{:href => "?sort=cweup"} CWE ID
-          %th 
-            - if params[:sort]=="cvssup"
-              %a{:href => "?sort=cvssdown"} CVSS
+              %a{:href => "?sort=classup"} 类别
+          %th{:style=>"min-width:50px"}
+            - if params[:sort]=="familyup"
+              %a{:href => "?sort=familydown"} 平台
             - else
-              %a{:href => "?sort=cvssup"} CVSS
+              %a{:href => "?sort=familyup"} 平台
           %th 漏洞描述
           %th{:style=>"min-width:80px"} 
             - if params[:sort]=="publishup"
@@ -43,31 +43,32 @@
         - @vuln_list.each do |each_vuln|
           %tr
             %td
-              %a{:href=>"#{each_vuln[6]}",:target=>"_blank"}
-                = each_vuln[0]
+              %a{:href=>"#{each_vuln[:oval_url]}",:target=>"_blank"}
+                = each_vuln[:id]
             %td
-              %a{:href=>"#{each_vuln[7]}",:target=>"_blank"}
-                = each_vuln[1]
-            %td
-              - if !each_vuln[2].nil?
-                - if each_vuln[2].to_f>=7.0
-                  %span.badge.badge-important
-                    = each_vuln[2]
-                - elsif each_vuln[2].to_f>=4.0
-                  %span.badge.badge-warning
-                    = each_vuln[2]
-                - else
-                  %span.badge.badge-info
-                    = each_vuln[2]
-              - else
-                %span.badge n/a
+              = each_vuln[:class]
+            %td 
+              =each_vuln[:family]
+            / %td
+            /   - if !each_vuln[2].nil?
+            /     - if each_vuln[2].to_f>=7.0
+            /       %span.badge.badge-important
+            /         = each_vuln[2]
+            /     - elsif each_vuln[2].to_f>=4.0
+            /       %span.badge.badge-warning
+            /         = each_vuln[2]
+            /     - else
+            /       %span.badge.badge-info
+            /         = each_vuln[2]
+            /   - else
+            /     %span.badge n/a
             %td
               %p
-                = each_vuln[3]
+                = each_vuln[:desc]
             %td 
-              = each_vuln[4]
+              = each_vuln[:publish]            
             %td 
-              = each_vuln[5]
+              = each_vuln[:modify]
           / %td 
           /   .btn-group
           /     %button.btn Approve

@@ -1,8 +1,10 @@
 Ovms::Application.routes.draw do
   
+  get "oval/index"
   root :to => 'home#index'
   get '/index' =>'home#index2'
   match '/database' ,to: 'vulndb#index' ,via:'get'
+  match '/oval' ,to: 'oval#index' ,via:'get'
   match '/stream' ,to: 'stream#index' ,via:'get'
   match '/calendar' ,to: 'calendar#index' ,via:'get'
   match '/getcalendar' ,to: 'calendar#getcalendar' ,via:'get'
@@ -13,7 +15,7 @@ Ovms::Application.routes.draw do
 
   match '/learning', to:'predict#learning_caller', via:'get'
   match '/sync_vuln', to:'vulndb#sync_vuln', via:'get'
-
+  match '/sync_oval', to:'oval#sync_oval', via:'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

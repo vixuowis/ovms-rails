@@ -3,31 +3,34 @@
   .sidebar
     %ul.col-nav.span2
       %li
-        %a.accordion-toggle{:href => "#bookmarks","data-toggle"=>"collapse"} 
-          趋势
-          %span.label.label-inverse.pull-right 3
-      %li.collapse#bookmarks
-        %ul 
-          %li
-            %a{:href => "#"}
-              %i.pull-right.icon-plane 
-              Flights
-            %a{:href => "#"}
-              %i.pull-right.icon-fire 
-              Fires
-            %a{:href => "#"}
-              %i.pull-right.icon-comment 
-              Comments
+        %a{:href => "#mark0"} 
+          漏洞发生趋势图
       %li
-        %a.accordion-toggle{:href => "#metrics","data-toggle"=>"collapse"}
-          统计
-          %span.label.label-inverse.pull-right 2
-      %li.collapse#metrics
-        %ul 
-          %li
-            %a{:href => "#"}
-              %i.pull-right.icon-plane 
-              Stats
-            %a{:href => "#"}
-              %i.pull-right.icon-fire 
-              Fires
+        %a{:href => "#mark1"} 
+          各系平台漏洞发生统计
+          / %span.label.label-inverse.pull-right 3
+      / %li.collapse#bookmarks
+      /   %ul 
+      /     %li
+      /       %a{:href => "#"}
+      /         %i.pull-right.icon-plane 
+      /         Flights
+      /       %a{:href => "#"}
+      /         %i.pull-right.icon-fire 
+      /         Fires
+      /       %a{:href => "#"}
+      /         %i.pull-right.icon-comment 
+      /         Comments
+      %li
+        %a{:href => "#mark2"}
+          具体平台漏洞发生统计
+      /     %span.label.label-inverse.pull-right 2
+      / %li.collapse#metrics
+      /   %ul 
+      /     %li
+      /       %a{:href => "#"}
+      /         %i.pull-right.icon-plane 
+      /         Stats
+      /       %a{:href => "#"}
+      /         %i.pull-right.icon-fire 
+      /         Fires

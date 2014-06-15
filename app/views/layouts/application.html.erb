@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OVMS - 基于OVAL的漏洞管理系统</title>
+  <title>OVMS - 基于OVAL的综合漏洞管理系统</title>
   <meta charset="utf8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
@@ -44,6 +44,7 @@
               <li><a href="/predict" class="<%= 'active' if current_page?(predict_path) %>"><i class="batch quill"></i><br />态势评估</a></li>
               <li><a href="/calendar" class="<%= 'active' if current_page?(calendar_path) %>"><i class="batch calendar"></i><br />漏洞日历</a></li>
               <li><a href="/database" class="<%= 'active' if current_page?(database_path) %>"><i class="batch database"></i><br />漏洞库</a></li>
+              <li><a href="/oval" class="<%= 'active' if current_page?(oval_path) %>"><i class="batch database"></i><br />OVAL库</a></li>
               <li><span class="label label-important pull-right">3</span><a href="/scan" class="<%= 'active' if current_page?(scan_path) %>"><i class="batch plane"></i><br />漏洞扫描</a></li>
               <!-- <li><a href="/log" class="<%= 'active' if current_page?(log_path) %>"><i class="batch forms"></i><br />系统日志</a></li> -->
               <!-- <li><a href="users.html"><i class="batch users"></i><br />帮助</a></li> -->

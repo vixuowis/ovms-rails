@@ -7,7 +7,9 @@ class PredictController < ApplicationController
     coll = db["nvdcve"]
     # cursor = coll.find({'cvss'=>nil,'publish'=>{'$gte'=>"2014-01-01"}}).sort({'publish'=>-1})
     # cursor = coll.find({'cvss'=>nil,'item.vuln:summary'=>{'$not'=>/REJECT/}}).sort({'publish'=>-1})
-    cursor = coll.find({'cvss'=>nil}).sort({'publish'=>-1})
+
+    date_str = (Time.now()-29*24*3600).to_s.split(" ")[0]
+    cursor = coll.find({'cvss'=>nil,'publish'=>{'$gte'=>date_str}}).sort({'publish'=>-1})
 
     @vuln_list = []
     cursor.each do |item|
@@ -29,6 +31,7 @@ class PredictController < ApplicationController
     begin
       rs= `cd ~/Playground/ovms-rails/ovaljob/learning/exp3_0612 && python bayes.py`
       puts rs
+      e = EventClass.new("predict","态势评估","完成本次态势评估，请在态势评估页面查看。")
       respond_to do |format|
         format.json{render :json=>{"success"=>true}}
       end
