@@ -27,7 +27,14 @@
         %input#cb3{:type=>"checkbox",:checked=>"checked"}
       - else
         %input#cb3{:type=>"checkbox"}
-      %label{:for=>"cb3"} 来自系统
+      %label{:for=>"cb3"} 来自漏洞扫描
+      %span.pull-right
+        = @filter_list[3][0]
+      - if @filter_list[3][1] 
+        %input#cb4{:type=>"checkbox",:checked=>"checked"}
+      - else
+        %input#cb4{:type=>"checkbox"}
+      %label{:for=>"cb4"} 来自系统
       / / new col: system
       / %h5 态势评估
       / / system log

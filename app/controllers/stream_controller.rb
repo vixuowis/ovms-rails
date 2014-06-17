@@ -11,6 +11,7 @@ class StreamController < ApplicationController
     # 同步信息
     sync_info_num = coll.find({'infotype'=>'sync'}).count
     predict_info_num = coll.find({'infotype'=>'predict'}).count
+    scan_info_num = coll.find({'infotype'=>'scan'}).count
     sys_info_num = coll.find({'infotype'=>'sys'}).count
 
     @events_list = []
@@ -29,6 +30,13 @@ class StreamController < ApplicationController
       is_sync = false
     end
 
+    if params['scan'].nil? or params['scan']=="1"
+      is_scan = true
+      get_events_list('scan')
+    else
+      is_scan = false
+    end
+
     if params['sys'].nil? or params['sys']=="1"
       is_sys = true
       get_events_list('sys')
@@ -41,6 +49,7 @@ class StreamController < ApplicationController
     @filter_list = [
       [predict_info_num,is_predict], #态势评估
       [sync_info_num,is_sync], #漏洞同步
+      [scan_info_num,is_scan], #漏洞扫描
       [sys_info_num,is_sys], #系统
 
       [12,true], #严重

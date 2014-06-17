@@ -1,3 +1,57 @@
+%script{:src=>"#{asset_path('jquery.rest.js')}"}
+%script{:src=>"#{asset_path('scan.js.coffee')}"}
+#addModal.modal.fade{'tabindex'=>'-1',:role=>'dialog','aria-labelledby'=>'myModalLabel','aria-hidden'=>'true'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{:type=>'button','data-dismiss'=>'modal','aria-hidden'=>'true'} &times;
+        %h4.modal-title 添加主机信息
+      .modal-body
+        %row 
+          %form.form-horizontal{:role=>'form'} 
+            .control-group
+              %label.control-label{:for=>'f_targetname'} 主机名称
+              .controls
+                %input#add-f_targetname{:type => "text",:placeholder=>'Windows 7 / Windows 8'}
+            .control-group
+              %label.control-label{:for=>'f_ipaddress'} IP地址
+              .controls
+                %input#add-f_ipaddress{:type => "text",:placeholder=>'192.168.***.***'}/
+      .modal-footer
+        %button.btn.btn-default{:type=>'button','data-dismiss'=>'modal'} 取消
+        %button.btn.btn-primary#add-save-change{:type=>'button'} 保存
+
+#editModal.modal.fade{'tabindex'=>'-1',:role=>'dialog','aria-labelledby'=>'myModalLabel','aria-hidden'=>'true'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{:type=>'button','data-dismiss'=>'modal','aria-hidden'=>'true'} &times;
+        %h4.modal-title 编辑主机信息
+      .modal-body
+        %row 
+          %form.form-horizontal{:role=>'form'} 
+            .control-group
+              %label.control-label{:for=>'f_targetname'} 主机名称
+              .controls
+                %input#edit-f_targetname{:type => "text",:placeholder=>'Windows 7 / Windows 8',:value=>"#{@current_item['name']}"}
+            .control-group
+              %label.control-label{:for=>'f_ipaddress'} IP地址
+              .controls
+                %input#edit-f_ipaddress{:type => "text",:placeholder=>'192.168.***.***',:value=>"#{@current_item['address']}"}
+      .modal-footer
+        %button.btn.btn-default{:type=>'button','data-dismiss'=>'modal'} 取消
+        %button.btn.btn-primary#edit-save-change{:type=>'button'} 保存
+
+#deleteModal.modal.fade{'tabindex'=>'-1',:role=>'dialog','aria-labelledby'=>'myModalLabel','aria-hidden'=>'true'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{:type=>'button','data-dismiss'=>'modal','aria-hidden'=>'true'} &times;
+        %h4.modal-title 删除该主机？
+      .modal-footer
+        %button.btn.btn-default{:type=>'button','data-dismiss'=>'modal'} 取消
+        %button.btn.btn-danger#delete-save-change{:type=>'button'} 确定
+
 .row
   .span12
     %h4.header 漏洞扫描
@@ -5,27 +59,64 @@
       .span1
         目标主机
       .span3{:style=>"width:200px;"}
-        %select{:name => ""}
-          %option{:value => "1"} Windows 8 / 192.168.1.1
-          %option{:value => "2"} Ubuntu 14.04 / 192.168.1.2
-          %option{:value => "3"} Redhat 5 / 192.168.1.3
+        %input#current_report{:type => "hidden",:value=>"#{@current_report}"}
+        %select#clientlist{:name => ""}
+          - @client_list.each do |client|
+            - if @current_report == client['_id']
+              %option{:value => "#{client['_id']}",:selected=>"true"} 
+                = client['name'] + " / " + client['address']
+            - else
+              %option{:value => "#{client['_id']}"} 
+                = client['name'] + " / " + client['address']
+          / %option{:value => "2"} Ubuntu 14.04 / 192.168.1.2
+          / %option{:value => "3"} Redhat 5 / 192.168.1.3
       .span8
-        %button.btn-small.btn-success 添加主机
+        %button#add-client.btn-small.btn-success 添加主机
+        %button#edit-client.btn-small.btn-success 编辑主机
+        %button#delete-client.btn-small.btn-danger 删除主机
     .row
       .span1
         连接状态
       .span11
-        %span.label.label-success 良好
+        - if @status == "success"
+          %span.label.label-success 良好
+        - else
+          %span.label.label-danger 未连接
     %hr/
     .table-panel
       %h4 该平台检测报告列表
       %table.table.table-striped
         %thead
           %tr
-            %th 报告名称
-            %th 检测时间
+            %th 报告编号
             %th 检测OVAL
+            %th 开始时间
+            %th 结束时间
+            %th 当前状态
             %th 报告地址
+        %tbody 
+          - @report_list.each do |rep|
+            - if rep['address']==@current_item['address']
+              %tr 
+                %td 
+                  =rep['id']
+                %td 
+                  %a{:href => "https://oval.mitre.org/rep-data/5.10/org.mitre.oval/v/platform/#{rep['oval']}",:target=>"_blank"} 
+                    =rep['oval']
+                %td
+                  =rep['start']
+                %td 
+                  =rep['stop']
+                %td
+                  - if rep['status'] == "检测结束"
+                    %span.badge.badge-success
+                      =rep['status']
+                  - if rep['status'] == "正在检测"
+                    %span.badge.badge-warning
+                      =rep['status']
+                %td 
+                  - if rep['status'] == "检测结束"
+                    %a{:href => "http://#{rep['address']}:3000/reports/results-#{rep['id']}.html",:class=>"btn btn-small btn-primary",:target=>"_blank"} 查看
     / %br/ 
     / .row
     /   .span12

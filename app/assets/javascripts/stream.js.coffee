@@ -34,8 +34,20 @@ $ ->
     # alert(href_temp)
     window.open(href_temp,"_self")
 
-  # 漏洞同步
+  # 漏洞扫描
   $('#cb3').change ->
+    params_temp = {};
+    jQuery.extend(params_temp,params);
+    if this.checked
+      params_temp['scan'] = 1
+    else
+      params_temp['scan'] = 0
+    href_temp = "?"+jQuery.param(params_temp)
+    # alert(href_temp)
+    window.open(href_temp,"_self")
+
+  # 系统
+  $('#cb4').change ->
     params_temp = {};
     jQuery.extend(params_temp,params);
     if this.checked

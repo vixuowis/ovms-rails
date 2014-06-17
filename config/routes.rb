@@ -16,6 +16,11 @@ Ovms::Application.routes.draw do
   match '/learning', to:'predict#learning_caller', via:'get'
   match '/sync_vuln', to:'vulndb#sync_vuln', via:'get'
   match '/sync_oval', to:'oval#sync_oval', via:'get'
+  match '/scan_client', to:'scan#scan_client', via:'get'
+
+  match '/add_client', to:'scan#add_client', via:'get'
+  match '/edit_client', to:'scan#edit_client', via:'get'
+  match '/delete_client', to:'scan#delete_client', via:'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -89,7 +89,7 @@ class OvalController < ApplicationController
         :desc => desc,
         :modify => modify,
         :publish => publish,
-        :oval_url => "http://oval.scap.org.cn/oval_org.mitre.oval_def_#{item['_id'].split(":")[-1]}.html",
+        :oval_url => "http://oval.scap.org.cn/oval_org.mitre.oval_def_#{item['item']['id'].split(":")[-1]}.html",
         # "http://wiki.scap.org.cn/cwe/cn/definition/#{cwe_number}"
         # 
         })
