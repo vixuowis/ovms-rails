@@ -43,7 +43,7 @@ def update_from_file(filename)
   return valid_vul_count
 end
 
-# (2013..2014).each do |year|
+# (2014..2014).each do |year|
 #   `curl -o 'nvdcve/#{year}.xml' http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-#{year}.xml`
 #   update_from_file("nvdcve/#{year}.xml")
 # end

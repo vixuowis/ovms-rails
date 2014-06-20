@@ -1,4 +1,6 @@
-require 'open-uri'
+# require 'open-uri'
+require 'socket'
+require 'timeout'
 class ScanController < ApplicationController
   def index
     mongo_client = MongoClient.new("localhost", 27017)
@@ -17,11 +19,26 @@ class ScanController < ApplicationController
       @current_report = @current_item['_id']
     end
     
-    begin
-      res = open("http://#{@current_item['address']}:3000/")
-      @status = "success"
-    rescue
-      @status = "failed"
+    # begin
+    #   res = open("http://#{@current_item['address']}:3000/")
+    #   @status = "success"
+    # rescue
+    #   @status = "failed"
+    # end
+
+    begin 
+       Timeout.timeout(1) do
+          begin
+            TCPSocket.new("#{@current_item['address']}", 3000)
+            @status = "success"
+          rescue Errno::ENETUNREACH
+             retry # or do something on network timeout
+          end
+       end
+    rescue Timeout::Error
+       puts "timed out"
+       @status = "failed"
+       # do something on timeout
     end
 
     coll_rep = db['report']

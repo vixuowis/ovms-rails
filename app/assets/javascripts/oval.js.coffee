@@ -15,6 +15,7 @@ $ ->
           $('#sync-bar .bar').css("width","100%")
           $('#sync').text("同步完毕！")
           alert("同步完毕!")
+          window.location.reload()
           # $('#sync').text("正在下载修订条目……")
           # $.read(
           #   '/sync_oval?step=2'

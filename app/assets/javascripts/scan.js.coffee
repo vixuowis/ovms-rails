@@ -2,6 +2,32 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
+  # $('#connect-good').hide()
+  # $('#connect-bad').show()
+
+  # $('#connect-status').click ->
+  #   # $.read({
+  #   #   # url: 'http://'+$('#current_address').val()+':3000/calloval'
+  #   #   url: 'http://192.168.117.128:3000/calloval?c=1'
+  #   #   type: 'jsonp'
+  #   #   success: (response)->
+  #   #     # alert('good')
+  #   #     $('#connect-status').removeClass('btn-danger')
+  #   #     $('#connect-status').addClass('btn-success')
+  #   #   error:(response)->
+  #   #     # alert('bad')
+  #   #     $('#connect-status').removeClass('btn-success')
+  #   #     $('#connect-status').addClass('btn-danger')
+  #   # });
+  #   alert('call')
+    
+  #   $.ajax({
+  #     url: 'http://192.168.117.128:3000/calloval'
+  #     type: 'json'
+  #     success: (response) -> 
+  #       alert "123"
+  #   });
+
   query = window.location.search.substring(1)
   raw_vars = query.split("&")
   params = {}

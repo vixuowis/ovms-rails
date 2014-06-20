@@ -79,9 +79,9 @@
         连接状态
       .span11
         - if @status == "success"
-          %span.label.label-success 良好
+          %span#connect-good.label.label-success 良好
         - else
-          %span.label.label-danger 未连接
+          %span#connect-bad.label.label-danger 未连接
     %hr/
     .table-panel
       %h4 该平台检测报告列表
